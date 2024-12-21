@@ -1,0 +1,376 @@
+@media screen and (max-width: 767px){
+    .p-120 {
+         padding: 100px 0px;
+    }
+    .d-flex {
+         flex-wrap: wrap;
+    }
+    .header-main {
+         padding: 15px 0px;
+    }
+    .header-logo img {
+         max-width: 146px;
+    }
+    .slider__bg {
+         padding: 140px 0px 120px;
+    }
+    .slider__content .sub-title::before {
+        background-image: none;
+    }
+    .slider__content .sub-title {
+         display: inline-block;
+    }
+    .slider__content .title {
+        font-size: 75px;
+    }
+    .slider__content h3 {
+        font-size: 30px;
+    }
+    .slider__img {
+        margin-top: 68px;
+    }
+    .count-main {
+         justify-content: center !important;
+    }
+    .about-info {
+         padding: 30px 15px;
+    }
+    .slider__content {
+         margin: 0px;
+         text-align: center;
+    }
+    .slider__content p {
+         font-size: 18px;
+    }
+    .how-to-buy-section .buy-media {
+         margin-top: 30px;
+    }
+    .how-to-buy-section .buy-media img,
+    .tokenomics-media img,
+    .token-media img {
+        max-width: 280px;
+    }
+    .token-area, .roadmap-section .roadmap-left,
+    .tokenomics-media,
+    .token-media {
+         text-align: center;
+    }
+    .token-area .section-title h2::after, .roadmap-section .roadmap-left .section-title h2::after {
+         margin: 20px auto 0px;
+    }
+    .token-area .token-media {
+         margin-top: 30px;
+    }
+    .roadmap-left {
+        margin-bottom: 32px;
+    }
+    .roadmap-steps-wrap {
+        margin: 0px;
+    }
+    .roadmap-steps-item h3 {
+        font-size: 26px;
+   }
+   .roadmap-steps-item ul li {
+        font-size: 18px;
+    }
+    .footer-el-widget .title {
+         font-size: 24px;
+    }
+    .footer-el-widget ul.list-wrap.end li {
+         justify-content: start;
+    }
+    .footer-el-widget ul li a {
+         font-size: 18px;
+    }
+    .copyright__text p, .copyright__menu ul li a {
+         font-size: 14px;
+    }
+    .copyright__text {
+        text-align: center;
+    }
+    .copyright__text p {
+        line-height: 1.45;
+    }
+    .copyright__card {
+        margin-top: 10px;
+    }
+    .footer-el-widget ul li {
+        justify-content: flex-start;
+        margin: 0 0 10px;
+    }
+    .footer-el-widget:not(.widget_nav_menu) {
+        margin-top: 0;
+    }
+    .footer-el-widget.text-start .title::before {
+        left: 0;
+        right: auto;
+    }
+}
+@media screen and (max-width: 767px) and (min-width: 575.001px){
+    .section-title h2 {
+        font-size: 48px;
+    }
+    .count-main .count-box {
+        margin: 15px 0px;
+        width: 50%;
+    }
+    .tokenomics-item {
+        margin-top: 30px;
+    }
+    .token-supply-main .token-supply {
+        justify-content: center !important;
+    }
+    .token-supply .supply-box {
+        width: auto;
+        text-align: center;
+        margin: 15px 0px;
+    }
+    .token-supply::before {
+      content: none;
+    }
+    .token-supply .supply-box.text-end img {
+        left: 0px;
+        right: inherit;
+    }
+    .token-supply .supply-box.text-end {
+        padding-left: 75px;
+        padding-right: 0px;
+    }
+}
+@media screen and (max-width: 575px){
+    .header-btn {
+      display: none;
+    }
+    .header-right .navbar .navbar-collapse .header-btn {
+        display: block;
+        margin: 0px !important;
+        padding-bottom: 20px;
+    }
+    .slider__content .title {
+         font-size: 50px;
+    }
+    .slider__content h3 {
+         font-size: 16px;
+    }
+    .section-title h2 {
+         font-size: 36px;
+    }
+    .count-box h2 {
+         font-size: 48px;
+         margin-bottom: 20px;
+    }
+    .slider__img {
+         margin-top: 24px;
+    }
+    .roadmap-steps-wrap {
+         margin: 30px 0px 0px;
+    }
+    .roadmap-steps-item {
+         padding: 25px;
+         margin-left: 20px;
+    }
+    .roadmap-steps-item ul li {
+         font-size: 16px;
+    }
+    .token-supply .supply-box {
+         width: 100%;
+         padding: 0px !important;
+         text-align: center !important;
+         margin-bottom: 20px;
+    }
+    .token-supply::before {
+         content: none;
+    }
+    .supply-box img {
+         position: static;
+         transform: none;
+         display: block;
+         margin: 0px auto 15px;
+    }
+    .token-supply svg {
+         display: none;
+    }
+    .supply-box h2 {
+         font-size: 26px;
+    }
+    .supply-box h2 > span {
+         font-size: 14px;
+    }
+    .count-box span {
+         font-size: 12px;
+         padding: 8px 15px;
+    }
+    .count-main .count-box {
+         width: 50%;
+    }
+    .buy-points ul li {
+         font-size: 18px;
+    }
+    .tokenomics-item {
+         width: 100% !important;
+         margin-top: 30px;
+         margin-bottom: 0px;
+    }
+    .tokenomics-media {
+         text-align: center;
+    }
+    .buy-btns .btn.btn-primary {
+         margin: 15px 0px;
+    }
+}
+@media screen and (min-width: 575.001px){
+    .header-right .navbar .navbar-collapse .header-btn {
+        display: none;
+    }
+}
+@media screen and (max-width: 992px) {
+    .header-right .navbar .navbar-collapse {
+        position: absolute;
+        top: 70px;
+        left: 0px;
+        right: 0px;
+        background-color: #131c23;
+        border-top: 2px solid rgb(255 255 255 / 15%);
+        padding-top: 6px;
+    }
+    .header-right > .header-btn {
+        order: 1;
+        margin: 0px 20px 0px 0px !important;
+    }
+    .header-right .navbar {
+        order: 2;
+    }
+    .navbar-expand-lg .navbar-nav {
+        margin: 0px !important;
+        padding-bottom: 10px;
+    }
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding: 16px 0px;
+        display: inline-block;
+    }
+    .footer-el-widget > ul.list-wrap li br {
+        display: none;
+    }
+    .copyright__menu ul {
+        gap: 0 25px;
+        margin: 5px 0 0;
+    }
+}
+@media screen and (max-width: 992px) and (min-width: 767.001px){
+    .section-title h2 {
+         font-size: 50px;
+    }
+    .header-area {
+         padding: 30px 0px;
+    }
+    .slider__content .title {
+         font-size: 80px;
+    }
+    .slider__content h3 {
+         font-size: 30px;
+    }
+    .slider__img {
+         margin-top: 68px;
+    }
+    .slider__area {
+         padding: 158px 0 120px;
+    }
+    .count-box h2 {
+         font-size: 60px;
+    }
+    .count-box span {
+         font-size: 15px;
+    }
+    .buy-media {
+         margin-top: 30px;
+    }
+    .tokenomics-media, .token-media {
+         text-align: center;
+    }
+    .tokenomics-item {
+         margin-top: 30px;
+         margin-bottom: 0px;
+    }
+    .roadmap-steps-wrap {
+         margin: 50px 0px 0px;
+    }
+    .supply-box h2 {
+         font-size: 28px;
+    }
+}
+@media screen and (max-width: 1200px) and (min-width: 992.001px){
+    .section-title h2 {
+         font-size: 60px;
+    }
+    .header-logo img {
+         max-width: 150px;
+    }
+    .navbar-expand-lg .navbar-nav .nav-link {
+         padding: 38px 12px;
+         font-size: 12px;
+    }
+    .slider__bg {
+         padding: 158px 0 130px;
+    }
+    .slider__content .title {
+         font-size: 76px;
+    }
+    .slider__content h3 {
+         font-size: 28px;
+    }
+    .buy-points ul li {
+        font-size: 18px;
+    }
+    .roadmap-steps-wrap {
+         margin: 0px;
+    }
+
+    .roadmap-steps-item h3 {
+        font-size: 20px;
+    }
+    .roadmap-steps-item ul li {
+        font-size: 16px;
+    }
+    .copyright__text p, .copyright__menu ul li a {
+         font-size: 16px;
+    }
+}
+@media screen and (max-width: 1400px) and (min-width: 1200.001px){
+    .slider__bg {
+         padding: 158px 0 150px;
+    }
+    .slider__img {
+         max-width: 480px;
+    }
+    .slider__content .title {
+         font-size: 92px;
+    }
+    .slider__content h3 {
+         font-size: 36px;
+    }
+    .navbar-expand-lg .navbar-nav .nav-link {
+         padding: 38px 15px;
+    }
+    .slider__content p, .roadmap-steps-item ul li {
+         font-size: 20px;
+    }
+    .section-title h2, .count-box h2 {
+         font-size: 60px;
+    }
+    .roadmap-steps-item h3 {
+        font-size: 24px;
+    }
+    .roadmap-steps-item ul li {
+        font-size: 18px;
+    }
+}
+@media screen and (min-width: 1400.001px) {
+    .slider__content {
+        position: relative;
+        z-index: 2;
+        top: 80px;
+    }
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1440px;
+    }
+}

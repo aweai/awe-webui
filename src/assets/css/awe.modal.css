@@ -1,0 +1,9 @@
+.awe-modal {
+    font-family: 'Berlin Sans FB';
+    color: #666;
+}
+.awe-modal .btn.btn-secondary {
+    color: #212529;
+    font-weight: 800;
+    text-shadow: -1px 2px 0px rgba(69, 248, 130, 0.66);
+}

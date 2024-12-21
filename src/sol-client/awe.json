@@ -1,0 +1,415 @@
+{
+  "address": "6RNWX7FVHCbiw7ivee5amUt4CzsCGkoj5T2QZdVWWYkh",
+  "metadata": {
+    "name": "awe",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "create_agent",
+      "discriminator": [
+        143,
+        66,
+        198,
+        95,
+        110,
+        85,
+        83,
+        249
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "awe_metadata_account"
+        },
+        {
+          "name": "awe_mint_account",
+          "relations": [
+            "awe_metadata_account"
+          ]
+        },
+        {
+          "name": "awe_collector_account",
+          "writable": true,
+          "relations": [
+            "awe_metadata_account"
+          ]
+        },
+        {
+          "name": "agent_creator",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  103,
+                  101,
+                  110,
+                  116,
+                  95,
+                  99,
+                  114,
+                  101,
+                  97,
+                  116,
+                  111,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "awe_metadata_account"
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "awe_sender_account",
+          "writable": true
+        },
+        {
+          "name": "delegate",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  100,
+                  101,
+                  108,
+                  101,
+                  103,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "init_agent_creator",
+      "discriminator": [
+        244,
+        113,
+        114,
+        148,
+        187,
+        52,
+        56,
+        115
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "awe_metadata_account"
+        },
+        {
+          "name": "awe_mint_account",
+          "relations": [
+            "awe_metadata_account"
+          ]
+        },
+        {
+          "name": "awe_collector_account",
+          "writable": true,
+          "relations": [
+            "awe_metadata_account"
+          ]
+        },
+        {
+          "name": "agent_creator",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  103,
+                  101,
+                  110,
+                  116,
+                  95,
+                  99,
+                  114,
+                  101,
+                  97,
+                  116,
+                  111,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "awe_metadata_account"
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "awe_sender_account",
+          "writable": true
+        },
+        {
+          "name": "delegate",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  100,
+                  101,
+                  108,
+                  101,
+                  103,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "init_awe_metadata",
+      "discriminator": [
+        228,
+        240,
+        13,
+        92,
+        40,
+        30,
+        51,
+        169
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "awe_mint_account"
+        },
+        {
+          "name": "awe_metadata_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  119,
+                  101,
+                  95,
+                  109,
+                  101,
+                  116,
+                  97,
+                  100,
+                  97,
+                  116,
+                  97
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "awe_collector_account"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "agent_price",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "update_awe_metadata",
+      "discriminator": [
+        100,
+        67,
+        145,
+        23,
+        170,
+        144,
+        68,
+        99
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "awe_mint_account"
+        },
+        {
+          "name": "awe_metadata_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  119,
+                  101,
+                  95,
+                  109,
+                  101,
+                  116,
+                  97,
+                  100,
+                  97,
+                  116,
+                  97
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "awe_collector_account"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "agent_price",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "AgentCreator",
+      "discriminator": [
+        210,
+        130,
+        21,
+        109,
+        43,
+        232,
+        132,
+        82
+      ]
+    },
+    {
+      "name": "AweMetadata",
+      "discriminator": [
+        41,
+        78,
+        31,
+        88,
+        51,
+        10,
+        84,
+        163
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "AgentCreator",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "num_agents",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AweMetadata",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "awe_mint_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "awe_collector_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "agent_price",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ]
+}
