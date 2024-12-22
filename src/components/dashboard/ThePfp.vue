@@ -23,7 +23,7 @@ onMounted(async () => {
 </script>
 <template>
 <div class="pfp">
-    <img class="placeholder" v-if="pfpBase64 === ''" src="@/assets/images/pfp-placeholder-256.png" />
+    <img v-if="pfpBase64 === ''" src="@/assets/images/pfp-placeholder-256.png" />
     <img class="real" v-if="pfpBase64 !== ''" :src="pfpBase64"/>
 </div>
 </template>
