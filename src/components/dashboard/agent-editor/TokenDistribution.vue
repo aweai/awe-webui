@@ -17,9 +17,6 @@ const agentStatsData = agentStore.currentAgentStats
 
 const sectionOpen = ref(false)
 
-const chargeAwe = async () => {
-    alert("Coming soon!")
-}
 const resetting = ref(false)
 
 const resetRound = async () => {
@@ -155,9 +152,6 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                         <span class="value"><span
                                 :class="{ 'num': true, 'zero': agentStatsData.awe_token_quote === 0 }">{{
                                     agentStatsData.awe_token_quote }}.00</span> AWE</span>
-                    </div>
-                    <div class="col col-3 actions">
-                        <button class="btn btn-secondary" @click="chargeAwe">Charge</button>
                     </div>
                 </div>
             </div>
