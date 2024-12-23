@@ -1,12 +1,14 @@
 <script setup>
-import { ref, watch } from 'vue';
-import userAgentAPI from '@/api/v1/user-agent';
+import { ref, watch } from 'vue'
+import userAgentAPI from '@/api/v1/user-agent'
 
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 const router = useRouter()
 const currentRoute = router.currentRoute.value
 
-import { useAgentStore } from '@/stores/agent';
+import { useAgentStore } from '@/stores/agent'
+
+import { alert } from "@/messages"
 
 const agentStore = useAgentStore()
 
@@ -18,10 +20,34 @@ const sectionOpen = ref(false)
 const chargeAwe = async () => {
     alert("Coming soon!")
 }
+const resetting = ref(false)
 
 const resetRound = async () => {
-    if (!confirm("More tokens could be transferred to the users. Are you sure to reset the round? ")) return
-    await userAgentAPI.resetAgentRound(currentRoute.params.agent_id)
+
+    if (resetting.value) {
+        return
+    }
+
+    resetting.value = true
+
+    try {
+        await userAgentAPI.resetAgentRound(currentRoute.params.agent_id)
+    } catch (e) {
+        console.error(e)
+        alert("Error resetting round data. Please try again later", "danger", 5000)
+        resetting.value = false
+        return
+    }
+
+    try {
+        await agentStore.loadAgentStats(currentRoute.params.agent_id)
+    } catch (e) {
+        console.error(e)
+        alert("Error refreshing Memegent data. Please try again later", "danger", 5000)
+    } finally {
+        resetting.value = false
+    }
+
 }
 
 watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
@@ -32,7 +58,8 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
     <section :class="{ 'config-section': true, 'token-distribution': true, 'open': sectionOpen }">
 
         <h3 class="section-title">
-            <div :class="{'section-completed': true, 'yes':agentData.awe_agent.awe_token_enabled && agentStore.tokenReady, 'no':!agentStore.tokenReady || !agentData.awe_agent.awe_token_enabled}">
+            <div
+                :class="{ 'section-completed': true, 'yes': agentData.awe_agent.awe_token_enabled && agentStore.tokenReady, 'no': !agentStore.tokenReady || !agentData.awe_agent.awe_token_enabled }">
                 <div class="yes">
                     <i class="fa-solid fa-circle-check"></i>
                 </div>
@@ -55,17 +82,15 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
         <div class="token-progress-overview" v-if="agentData.awe_agent.awe_token_enabled && !sectionOpen">
             <div class="progress" role="progressbar" aria-label="AWE used this round"
                 :aria-valuenow="agentStatsData.awe_token_round_transferred" aria-valuemin="0"
-                :aria-valuemax="agentStore.maxQuoteThisRound"
-                style="height: 24px">
+                :aria-valuemax="agentStore.maxQuoteThisRound" style="height: 24px">
                 <div :class="{
-                    'progress-bar':true,
-                    'progress-bar-striped':true,
-                    'progress-bar-animated':true,
+                    'progress-bar': true,
+                    'progress-bar-striped': true,
+                    'progress-bar-animated': true,
                     'bg-info': agentStore.roundUsedPercentage < 100,
                     'bg-danger': agentStore.roundUsedPercentage === 100,
-                    'overflow-visible':true
-                    }"
-                    :style="{ width: agentStore.roundUsedPercentage + '%' }">
+                    'overflow-visible': true
+                }" :style="{ width: agentStore.roundUsedPercentage + '%' }">
                     <span style="display:inline-block;padding-left:6px;">
                         {{ agentStatsData.awe_token_round_transferred }}.00
                         /
@@ -94,17 +119,15 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                     <div class="col col-9">
                         <div class="progress" role="progressbar" aria-label="AWE used this round"
                             :aria-valuenow="agentStatsData.awe_token_round_transferred" aria-valuemin="0"
-                            :aria-valuemax="agentStore.maxQuoteThisRound"
-                            style="height: 48px">
+                            :aria-valuemax="agentStore.maxQuoteThisRound" style="height: 48px">
                             <div :class="{
-                                    'progress-bar':true,
-                                    'progress-bar-striped':true,
-                                    'progress-bar-animated':true,
-                                    'bg-info': agentStore.roundUsedPercentage < 100,
-                                    'bg-danger': agentStore.roundUsedPercentage === 100,
-                                    'overflow-visible':true
-                                }"
-                                :style="{ width: agentStore.roundUsedPercentage + '%' }">
+                                'progress-bar': true,
+                                'progress-bar-striped': true,
+                                'progress-bar-animated': true,
+                                'bg-info': agentStore.roundUsedPercentage < 100,
+                                'bg-danger': agentStore.roundUsedPercentage === 100,
+                                'overflow-visible': true
+                            }" :style="{ width: agentStore.roundUsedPercentage + '%' }">
                                 <span style="display:inline-block;padding-left:6px;">
                                     {{ agentStatsData.awe_token_round_transferred }}.00
                                     /
@@ -114,7 +137,13 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                         </div>
                     </div>
                     <div class="col col-3 actions">
-                        <button class="btn btn-secondary" @click="resetRound">Reset</button>
+                        <button v-if="!resetting" type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                            data-bs-target="#confirmReset">Reset</button>
+
+                        <div v-if="resetting" class="spinner-border" role="status"
+                            style="margin-top: 8px;margin-right: 16px;">
+                            <span class="visually-hidden">Resetting...</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -123,7 +152,9 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                 <div class="row">
                     <div class="col col-9">
                         <label class="form-label">Memegent account:</label>
-                        <span class="value"><span :class="{'num': true, 'zero': agentStatsData.awe_token_quote === 0}">{{ agentStatsData.awe_token_quote }}.00</span> AWE</span>
+                        <span class="value"><span
+                                :class="{ 'num': true, 'zero': agentStatsData.awe_token_quote === 0 }">{{
+                                    agentStatsData.awe_token_quote }}.00</span> AWE</span>
                     </div>
                     <div class="col col-3 actions">
                         <button class="btn btn-secondary" @click="chargeAwe">Charge</button>
@@ -133,39 +164,61 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
 
             <div class="mb-3">
                 <label for="max-per-tx" class="form-label">Max amount allowed per transaction</label>
-                <input
-                    v-model="agentData.awe_agent.awe_token_config.max_token_per_tx"
-                    type="number"
-                    :class="{'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.max_token_per_tx <= 0}"
+                <input v-model="agentData.awe_agent.awe_token_config.max_token_per_tx" type="number"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.max_token_per_tx <= 0 }"
                     id="max-per-tx">
             </div>
 
             <div class="mb-3">
                 <label for="max-per-round" class="form-label">Max amount allowed per round</label>
-                <input
-                    v-model="agentData.awe_agent.awe_token_config.max_token_per_round"
-                    type="number"
-                    :class="{'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.max_token_per_round <= 0}"
+                <input v-model="agentData.awe_agent.awe_token_config.max_token_per_round" type="number"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.max_token_per_round <= 0 }"
                     id="max-per-round">
             </div>
         </div>
     </section>
+    <div class="awe-modal modal fade" id="confirmReset" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="resetRound" data-bs-theme="light">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resetRound">Reset the Round</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row confirm-message justify-content-center">
+                        <div class="col col-10">
+                            `Token used this round` will be reset to 0. More tokens will be allowed to be
+                            transferred to the users. Please confirm the reset.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" @click="resetRound"
+                        data-bs-dismiss="modal"><span>Reset</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 <style scoped>
 .token-distribution .token-used .actions {
     text-align: right;
 }
+
 .token-distribution .token-left .actions {
     padding-top: 12px;
     text-align: right;
 }
+
 .token-distribution .token-left .num {
     font-size: 40px;
     margin-left: 24px;
     color: rgba(69, 248, 130);
 }
-.token-distribution .token-left .num.zero
-{
+
+.token-distribution .token-left .num.zero {
     color: #dc3545
 }
 </style>
