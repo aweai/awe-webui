@@ -3,8 +3,7 @@
     "solana": {
         "network": "devnet",
         "contracts": {
-            "awe_metadata_address": "CAiTJTMcRVBWm16z9Zrd2G38iR1n1X48WN5kKw2shxxi",
-            "awe_mint_address": "Bku6qAGAhEn1RESz8FkuFEzwT5nKyWik14idasduiLuS"
+            "awe_metadata_address": "FuFDmG2tuTUzKA3jV3ntQ9VmaST5usXFDsCBFVkUM1PF"
         }
     }
 }
