@@ -109,11 +109,27 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                     You must charge the Memegent with enough AWE before it could perform the transaction.
                 </p>
             </blockquote>
+            <div class="mb-3 round">
+                <label class="form-label">Round number</label>
+                <div class="row">
+                    <div class="col col-9 round-number">
+                        Round {{ agentStatsData.current_round  }}
+                    </div>
+                    <div class="col col-3 actions">
+                        <button v-if="!resetting" type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                            data-bs-target="#confirmReset">New Round</button>
 
+                        <div v-if="resetting" class="spinner-border" role="status"
+                            style="margin-top: 8px;margin-right: 16px;">
+                            <span class="visually-hidden">Updating...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="mb-3 token-used">
                 <label class="form-label">Token used this round</label>
                 <div class="row">
-                    <div class="col col-9">
+                    <div class="col col-12">
                         <div class="progress" role="progressbar" aria-label="AWE used this round"
                             :aria-valuenow="agentStatsData.awe_token_round_transferred" aria-valuemin="0"
                             :aria-valuemax="agentStore.maxQuoteThisRound" style="height: 48px">
@@ -133,15 +149,6 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                             </div>
                         </div>
                     </div>
-                    <div class="col col-3 actions">
-                        <button v-if="!resetting" type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                            data-bs-target="#confirmReset">Reset</button>
-
-                        <div v-if="resetting" class="spinner-border" role="status"
-                            style="margin-top: 8px;margin-right: 16px;">
-                            <span class="visually-hidden">Resetting...</span>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -154,6 +161,13 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                                     agentStatsData.awe_token_quote }}.00</span> AWE</span>
                     </div>
                 </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="user-payment-per-round" class="form-label">Required user payment per round</label>
+                <input v-model="agentData.awe_agent.awe_token_config.user_price" type="number"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.user_price <= 0 }"
+                    id="user-payment-per-round">
             </div>
 
             <div class="mb-3">
@@ -209,6 +223,11 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
 .token-distribution .token-left .num {
     font-size: 40px;
     margin-left: 24px;
+    color: rgba(69, 248, 130);
+}
+
+.round .round-number {
+    font-size: 40px;
     color: rgba(69, 248, 130);
 }
 

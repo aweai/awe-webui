@@ -12,6 +12,30 @@ const loraModelSource = ref("Huggingface")
 watch(() => agentData.awe_agent.image_generation_enabled, (enabled) => {
     sectionOpen.value = enabled
 });
+
+watch(() => agentData.awe_agent.image_generation_args.lora.model, (modelName) => {
+    if(/civitai/.test(modelName)) {
+        loraModelSource.value = "Civitai"
+    } else {
+        loraModelSource.value = "Huggingface"
+    }
+})
+
+watch(() => agentData.awe_agent.image_generation_args.base_model.name, (modelName) =>{
+    if (/sdxl-turbo/.test(modelName)) {
+        agentData.awe_agent.image_generation_args.scheduler = {
+            "method": "EulerAncestralDiscreteScheduler",
+            "args": {
+                "timestep_spacing": "trailing"
+            }
+        }
+    } else {
+        if(agentData.awe_agent.image_generation_args.scheduler) {
+            delete agentData.awe_agent.image_generation_args.scheduler
+        }
+    }
+});
+
 </script>
 <template>
 <section :class="{'config-section': true, 'open': sectionOpen}">
@@ -67,7 +91,7 @@ watch(() => agentData.awe_agent.image_generation_enabled, (enabled) => {
                             :class="{'form-control': true, 'is-invalid': agentData.awe_agent.image_generation_args.base_model.name === ''}"
                             id="base-model"
                             v-model="agentData.awe_agent.image_generation_args.base_model.name" />
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ agentData.awe_agent.image_generation_args.base_model.variant == "" && "Default" || "FP16" }}</button>
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ !agentData.awe_agent.image_generation_args.base_model.variant && "Default" || "FP16" }}</button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="javascript:void(0)" @click="agentData.awe_agent.image_generation_args.base_model.variant = ''">Default</a></li>
                             <li><a class="dropdown-item" href="javascript:void(0)" @click="agentData.awe_agent.image_generation_args.base_model.variant = 'fp16'">FP16</a></li>

@@ -19,13 +19,14 @@ const emptyAgent = {
     awe_token_config: {
       max_token_per_tx: 10,
       max_token_per_round: 100,
+      user_price: 100
     },
     image_generation_enabled: false,
     image_generation_args: {
       version: '2.0.0',
       prompt: '',
       base_model: {
-        name: '',
+        name: 'crynux-ai/sdxl-turbo',
         variant: null,
       },
       lora: {
@@ -35,8 +36,8 @@ const emptyAgent = {
       },
       task_config: {
         num_images: 1,
-        steps: 40,
-        cfg: 3.5,
+        steps: 1,
+        cfg: 0,
         safety_checker: false,
       },
     },
@@ -51,6 +52,7 @@ export const useAgentStore = defineStore('agent', {
       awe_token_round_transferred: 0,
       awe_token_total_transferred: 0,
       awe_token_quote: 0,
+      current_round: 1
     },
   }),
   getters: {
@@ -102,7 +104,8 @@ export const useAgentStore = defineStore('agent', {
     tokenReady(state) {
       return (
         state.currentAgent.awe_agent.awe_token_config.max_token_per_round > 0 &&
-        state.currentAgent.awe_agent.awe_token_config.max_token_per_tx > 0
+        state.currentAgent.awe_agent.awe_token_config.max_token_per_tx > 0 &&
+        state.currentAgent.awe_agent.awe_token_config.user_price > 0
       )
     },
   },
@@ -118,11 +121,7 @@ export const useAgentStore = defineStore('agent', {
       if (loadedAgentData.tg_bot) {
         Object.assign(currentAgent.tg_bot, loadedAgentData.tg_bot)
       } else {
-        Object.assign(currentAgent.tg_bot, {
-          username: '',
-          token: '',
-          start_message: '',
-        })
+        Object.assign(currentAgent.tg_bot, JSON.parse(JSON.stringify(emptyAgent.tg_bot)))
       }
 
       if (loadedAgentData.awe_agent) {
@@ -130,15 +129,10 @@ export const useAgentStore = defineStore('agent', {
         if (loadedAweAgent.llm_config) {
           Object.assign(currentAgent.awe_agent.llm_config, loadedAweAgent.llm_config)
         } else {
-          Object.assign(currentAgent.awe_agent.llm_config, {
-            model_name: 'mistralai/Mistral-7B-Instruct-v0.3',
-            hf_token: '',
-            prompt_preset: '',
-          })
+          Object.assign(currentAgent.awe_agent.llm_config, JSON.parse(JSON.stringify(emptyAgent.awe_agent.llm_config)))
         }
 
-        this.currentAgent.awe_agent.image_generation_enabled =
-          loadedAweAgent.image_generation_enabled
+        this.currentAgent.awe_agent.image_generation_enabled = loadedAweAgent.image_generation_enabled
         this.currentAgent.awe_agent.awe_token_enabled = loadedAweAgent.awe_token_enabled
 
         if (loadedAweAgent.image_generation_args) {
@@ -147,75 +141,19 @@ export const useAgentStore = defineStore('agent', {
             loadedAweAgent.image_generation_args,
           )
           if (!currentAgent.awe_agent.image_generation_args.lora) {
-            currentAgent.awe_agent.image_generation_args.lora = {
-              model: '',
-              weight_file_name: '',
-              weight: 100,
-            }
+            currentAgent.awe_agent.image_generation_args.lora = JSON.parse(JSON.stringify(emptyAgent.awe_agent.image_generation_args.lora))
           }
         } else {
-          Object.assign(currentAgent.awe_agent.image_generation_args, {
-            version: '2.0.0',
-            prompt: '',
-            base_model: {
-              name: '',
-              variant: null,
-            },
-            lora: {
-              model: '',
-              weight_file_name: '',
-              weight: 100,
-            },
-            task_config: {
-              num_images: 1,
-              steps: 40,
-              cfg: 3.5,
-              safety_checker: false,
-            },
-          })
+          Object.assign(currentAgent.awe_agent.image_generation_args, JSON.parse(JSON.stringify(emptyAgent.awe_agent.image_generation_args)))
         }
 
         if (loadedAweAgent.awe_token_config) {
           Object.assign(currentAgent.awe_agent.awe_token_config, loadedAweAgent.awe_token_config)
         } else {
-          Object.assign(currentAgent.awe_agent.awe_token_config, {
-            max_token_per_tx: 10,
-            max_token_per_round: 100,
-          })
+          Object.assign(currentAgent.awe_agent.awe_token_config, JSON.parse(JSON.stringify(emptyAgent.awe_agent.awe_token_config)))
         }
       } else {
-        Object.assign(currentAgent.awe_agent, {
-          llm_config: {
-            model_name: 'mistralai/Mistral-7B-Instruct-v0.3',
-            hf_token: '',
-            prompt_preset: '',
-          },
-          awe_token_enabled: false,
-          awe_token_config: {
-            max_token_per_tx: 10,
-            max_token_per_round: 100,
-          },
-          image_generation_enabled: false,
-          image_generation_args: {
-            version: '2.0.0',
-            prompt: '',
-            base_model: {
-              name: '',
-              variant: null,
-            },
-            lora: {
-              model: '',
-              weight_file_name: '',
-              weight: 100,
-            },
-            task_config: {
-              num_images: 1,
-              steps: 40,
-              cfg: 3.5,
-              safety_checker: false,
-            },
-          },
-        })
+        Object.assign(currentAgent.awe_agent, JSON.parse(JSON.stringify(emptyAgent.awe_agent)))
       }
     },
 
