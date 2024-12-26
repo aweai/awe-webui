@@ -1,0 +1,9 @@
+{
+    "base_url": "https://api.aweai.fun",
+    "solana": {
+        "network": "devnet",
+        "contracts": {
+            "awe_metadata_address": "FuFDmG2tuTUzKA3jV3ntQ9VmaST5usXFDsCBFVkUM1PF"
+        }
+    }
+}
