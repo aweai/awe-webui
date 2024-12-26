@@ -11,7 +11,7 @@ export default defineConfig({
     vue(),
     vueDevTools(),
     nodePolyfills({
-        include: ['buffer'],
+        include: ['buffer', 'events'],
         globals: {
             Buffer: true
         }
