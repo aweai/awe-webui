@@ -190,21 +190,23 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="resetRound">Reset the Round</h5>
+                    <h5 class="modal-title" id="resetRound">Start a New Round</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row confirm-message justify-content-center">
                         <div class="col col-10">
-                            `Token used this round` will be reset to 0. More tokens will be allowed to be
-                            transferred to the users. Please confirm the reset.
+                            <ul>
+                                <li>• Token transfer limit for a round will be reset.</li>
+                                <li>• Users will have to pay again to participate.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-secondary" @click="resetRound"
-                        data-bs-dismiss="modal"><span>Reset</span></button>
+                        data-bs-dismiss="modal"><span>Start</span></button>
                 </div>
             </div>
         </div>
