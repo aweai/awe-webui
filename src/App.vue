@@ -216,6 +216,13 @@ input, input:focus {
 #confirmTransaction .waiting {
     margin: 64px auto;
 }
+.swv-modal-container p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.swv-modal-overlay {
+    background: rgba(0,0,0,0.7) !important;
+}
 </style>
 <style>
 @import "./assets/css/bootstrap.min.css";

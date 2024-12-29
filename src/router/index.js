@@ -36,15 +36,21 @@ const router = createRouter({
             component: () => import('@/components/web-callback/WebCallback.vue'),
             children: [
                 {
-                    name: 'bind',
-                    path: 'bind/:agent_id/:tg_user_id',
-                    component: () => import("@/components/web-callback/user-wallets/BindWallet.vue")
+                    path: 'user-wallets',
+                    component: () => import("@/components/web-callback/user-wallets/UserWallets.vue"),
+                    children: [
+                        {
+                            name: 'bind',
+                            path: 'bind/:agent_id/:tg_user_id',
+                            component: () => import("@/components/web-callback/user-wallets/BindWallet.vue")
+                        },
+                        {
+                            name: 'approve',
+                            path: 'approve/:agent_id/:tg_user_id/:wallet_address',
+                            component: () => import("../components/web-callback/user-wallets/WalletApprove.vue")
+                        }
+                    ]
                 },
-                {
-                    name: 'approve',
-                    path: 'approve/:agent_id/:tg_user_id/:wallet_address',
-                    component: () => import("../components/web-callback/user-wallets/WalletApprove.vue")
-                }
             ]
         }
     ],
