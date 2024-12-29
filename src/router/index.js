@@ -1,33 +1,52 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import IndexPage from '../components/index/IndexPage.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
-            path: '/',
+            path: '',
             name: 'index',
-            component: IndexPage,
-        },
-        {
-            path: '/dashboard',
-            // route level code-splitting
-            // this generates a separate chunk (About.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () => import('../components/dashboard/TheDashboard.vue'),
+            component: () => import("@/components/web-app/WebApp.vue"),
             children: [
                 {
-                    name: 'dashboard',
-                    path: '',
-                    component: () => import("../components/dashboard/AgentList.vue")
+                    name: 'index',
+                    path: '/',
+                    component: () => import('@/components/web-app/index/IndexPage.vue')
                 },
                 {
-                    name: 'agent',
-                    path: 'agent/:agent_id',
-                    component: () => import("../components/dashboard/agent-editor/AgentEditor.vue")
-                }
-            ],
+                    path: 'dashboard',
+                    component: () => import('@/components/web-app/dashboard/TheDashboard.vue'),
+                    children: [
+                        {
+                            name: 'dashboard',
+                            path: '',
+                            component: () => import("@/components/web-app/dashboard/AgentList.vue")
+                        },
+                        {
+                            name: 'agent',
+                            path: 'agent/:agent_id',
+                            component: () => import("@/components/web-app/dashboard/agent-editor/AgentEditor.vue")
+                        }
+                    ],
+                },
+            ]
         },
+        {
+            path: '/callback',
+            component: () => import('@/components/web-callback/WebCallback.vue'),
+            children: [
+                {
+                    name: 'bind',
+                    path: 'bind/:agent_id/:tg_user_id',
+                    component: () => import("@/components/web-callback/user-wallets/BindWallet.vue")
+                },
+                {
+                    name: 'approve',
+                    path: 'approve/:agent_id/:tg_user_id/:wallet_address',
+                    component: () => import("../components/web-callback/user-wallets/WalletApprove.vue")
+                }
+            ]
+        }
     ],
 })
 
