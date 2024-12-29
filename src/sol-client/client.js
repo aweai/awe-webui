@@ -172,14 +172,19 @@ class AweClient {
             .rpc({ commitment: "confirmed" })
     }
 
-    async approveAwe (
-        originalTokenAccountPublicKey,
-        delegatePublicKey,
-        delegateAmount
-    ) {
+    // Approve the awe collector account to transfer AWE from user's wallet
+    async approveAwe (delegateAmount) {
         const provider = this.program.provider
         const connection = provider.connection;
         const recentBlockhash = await connection.getLatestBlockhash();
+
+        const providerTokenAccountPublicKey = await getAssociatedTokenAddress(
+            this.aweMetadata.aweMintAccount,
+            provider.publicKey,
+            false,
+            TOKEN_2022_PROGRAM_ID,
+            ASSOCIATED_TOKEN_PROGRAM_ID
+        );
 
         let tx = new Transaction({
             lastValidBlockHeight: recentBlockhash.lastValidBlockHeight,
@@ -187,9 +192,9 @@ class AweClient {
             feePayer: provider.publicKey
         }).add(
             createApproveCheckedInstruction(
-                originalTokenAccountPublicKey,
+                providerTokenAccountPublicKey,
                 this.aweMetadata.aweMintAccount,
-                delegatePublicKey,
+                this.aweMetadata.aweCollectorAccount,
                 provider.publicKey,
                 delegateAmount,
                 9,
@@ -200,6 +205,7 @@ class AweClient {
 
         const txSignature = await provider.sendAndConfirm(tx);
         console.log("Approve: ", txSignature)
+        return txSignature
     };
 }
 

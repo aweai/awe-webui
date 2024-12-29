@@ -10,8 +10,8 @@ class UserWalletAPI extends BaseApi {
         )
     }
 
-    async approve(agentId, tgUserId) {
-
+    async approve(agentId, tgUserId, approve_tx_signature) {
+        return this.getHttpClient().post("/user-wallets/approve/" + agentId + "/" + tgUserId + "?signature=" + approve_tx_signature)
     }
 }
 

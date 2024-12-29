@@ -18,11 +18,11 @@ const tgBotUsername = route.query.tg_bot
 const pageExpired = ref(false)
 const signing = ref(false)
 const finished = ref(false)
-const inValid = ref(false)
+const invalid = ref(false)
 
 if(!agentId || !tgUserId || !timestamp || !signature || !tgBotUsername) {
     alert("Invalid request. Please DM the Telegram Bot to get a new link.", "danger", 5000)
-    inValid.value = true
+    invalid.value = true
 }
 
 const { connected, publicKey, signMessage } = useWallet()
@@ -30,7 +30,7 @@ const { connected, publicKey, signMessage } = useWallet()
 watch(connected, async (newValue, oldValue) => {
     if(newValue && !oldValue && !pageExpired.value) {
 
-        if(inValid.value)
+        if(invalid.value)
             return
 
         // First time connect
