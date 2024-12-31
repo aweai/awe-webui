@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 import StatsCharts from './StatsCharts.vue';
 import TokenDistribution from './TokenDistribution.vue';
 import ImageGeneration from './ImageGeneration.vue';
+import DangerZone from './DangerZone.vue';
 import PfpUpload from './PfpUpload.vue';
 const router = useRouter()
 const currentRoute = router.currentRoute.value
@@ -251,6 +252,7 @@ onMounted(async () => {
 
             <token-distribution></token-distribution>
             <image-generation></image-generation>
+            <danger-zone></danger-zone>
         </form>
     </div>
     <div v-if="saving" class="saving loading spinner-border text-light" role="status">
