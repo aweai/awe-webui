@@ -19,14 +19,14 @@ const loadAgentList = async () => {
 
 const refreshAgentList = async () => {
 
-    if(importing.value)
+    if (importing.value)
         return
 
     importing.value = true
 
     try {
         userAgents.value = await userAgentAPI.importUserAgents()
-    } catch(e) {
+    } catch (e) {
         console.error(e)
     } finally {
         importing.value = false
@@ -42,7 +42,7 @@ const refreshAgentList = async () => {
 const { agentCreationQuote } = storeToRefs(walletStore)
 
 watch(agentCreationQuote, async (newQuote) => {
-    if(newQuote > userAgents.value.length) {
+    if (newQuote > userAgents.value.length) {
         await refreshAgentList()
     }
 });
@@ -58,7 +58,7 @@ onMounted(async () => {
 });
 
 const goToDetail = (agentId) => {
-    router.push({'name': 'agent', 'params': {'agent_id': agentId}})
+    router.push({ 'name': 'agent', 'params': { 'agent_id': agentId } })
 };
 
 </script>
@@ -66,7 +66,7 @@ const goToDetail = (agentId) => {
 <template>
     <div class="page-title">
         Memegents ({{ walletStore.agentCreationQuote }})
-        <div :class="{'reload-btn': true, 'loading': importing}" @click="refreshAgentList">
+        <div :class="{ 'reload-btn': true, 'loading': importing }" @click="refreshAgentList">
             <i class="not-loading fa-solid fa-rotate-right"></i>
             <div class="loading spinner-border text-light" role="status">
                 <span class="visually-hidden">Loading...</span>
@@ -126,7 +126,7 @@ const goToDetail = (agentId) => {
                                             <div class="stats-value">1,325</div>
                                         </div>
                                         <div class="stats-item">
-                                            <div class="stats-name">AWE Transferred</div>
+                                            <div class="stats-name">Round Transferred</div>
                                             <div class="stats-value">20,375</div>
                                         </div>
                                     </div>
@@ -136,7 +136,7 @@ const goToDetail = (agentId) => {
                                             <div class="stats-value">63K</div>
                                         </div>
                                         <div class="stats-item">
-                                            <div class="stats-name">AWE Left</div>
+                                            <div class="stats-name">Pool</div>
                                             <div class="stats-value">243,656</div>
                                         </div>
                                     </div>
@@ -154,18 +154,20 @@ const goToDetail = (agentId) => {
                         </div>
                         <div class="row">
                             <div class="col edit-btn-area">
-                                <a class="btn btn-primary edit-memegent-btn" href="javascript:void(0)" @click="goToDetail(agent.id)"><span>Details</span></a>
+                                <a class="btn btn-primary edit-memegent-btn" href="javascript:void(0)"
+                                    @click="goToDetail(agent.id)"><span>Details</span></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div :class="{'memegent-item': true, 'row': true, 'active': agent.enabled}" v-for="agent in userAgents" v-bind:key="agent.id">
+                <div :class="{ 'memegent-item': true, 'row': true, 'active': agent.enabled }"
+                    v-for="agent in userAgents" v-bind:key="agent.id">
                     <div class="col col-3">
                         <div class="memegent-card">
                             <div class="memegent-card-bg"></div>
                             <div class="memegent-card-content">
                                 <pfp :agent-id="agent.id"></pfp>
-                                <div class="name">{{  agent.name }}</div>
+                                <div class="name">{{ agent.name }}</div>
                                 <div class="status">
                                     <div class="enabled" v-if="agent.enabled">
                                         <i class="fa-solid fa-dove"></i>
@@ -189,10 +191,12 @@ const goToDetail = (agentId) => {
                                                     <i class="fa-brands fa-telegram"></i>
                                                 </div>
                                                 <div class="tg-link-content">
-                                                    <span v-if="agent.tg_bot">https://t.me/{{ agent.tg_bot.username }}</span>
+                                                    <span v-if="agent.tg_bot">https://t.me/{{ agent.tg_bot.username
+                                                        }}</span>
                                                     <span v-else>N/A</span>
                                                 </div>
-                                                <tg-copy-button v-if="agent.tg_bot" :tg-username="agent.tg_bot.username"></tg-copy-button>
+                                                <tg-copy-button v-if="agent.tg_bot"
+                                                    :tg-username="agent.tg_bot.username"></tg-copy-button>
                                             </div>
                                         </div>
                                     </div>
@@ -201,24 +205,28 @@ const goToDetail = (agentId) => {
                                     <div class="col col-6">
                                         <div class="stats-item">
                                             <div class="stats-name">Users</div>
-                                            <div class="stats-value" v-if="agent.agent_data">{{ agent.agent_data.total_users.toLocaleString() }}</div>
+                                            <div class="stats-value" v-if="agent.agent_data">{{
+                                                agent.agent_data.total_users.toLocaleString() }}</div>
                                             <div class="stats-value" v-else>-</div>
                                         </div>
                                         <div class="stats-item">
                                             <div class="stats-name">Round Transferred</div>
-                                            <div class="stats-value" v-if="agent.agent_data">{{ agent.agent_data.awe_token_round_transferred.toLocaleString() }}</div>
+                                            <div class="stats-value" v-if="agent.agent_data">{{
+                                                agent.agent_data.awe_token_round_transferred.toLocaleString() }}</div>
                                             <div class="stats-value" v-else>-</div>
                                         </div>
                                     </div>
                                     <div class="col col-6">
                                         <div class="stats-item">
                                             <div class="stats-name">Invocations</div>
-                                            <div class="stats-value" v-if="agent.agent_data">{{ agent.agent_data.total_invocations.toLocaleString() }}</div>
+                                            <div class="stats-value" v-if="agent.agent_data">{{
+                                                agent.agent_data.total_invocations.toLocaleString() }}</div>
                                             <div class="stats-value" v-else>-</div>
                                         </div>
                                         <div class="stats-item">
-                                            <div class="stats-name">Account Balance</div>
-                                            <div class="stats-value" v-if="agent.agent_data">{{ agent.agent_data.awe_token_quote.toLocaleString() }}</div>
+                                            <div class="stats-name">Pool</div>
+                                            <div class="stats-value" v-if="agent.agent_data">{{
+                                                agent.agent_data.awe_token_quote.toLocaleString() }}</div>
                                             <div class="stats-value" v-else>-</div>
                                         </div>
                                     </div>
@@ -236,7 +244,8 @@ const goToDetail = (agentId) => {
                         </div>
                         <div class="row">
                             <div class="col edit-btn-area">
-                                <a class="btn btn-primary edit-memegent-btn" href="javascript:void(0)" @click="goToDetail(agent.id)"><span>Details</span></a>
+                                <a class="btn btn-primary edit-memegent-btn" href="javascript:void(0)"
+                                    @click="goToDetail(agent.id)"><span>Details</span></a>
                             </div>
                         </div>
                     </div>
@@ -254,6 +263,7 @@ const goToDetail = (agentId) => {
     top: 4px;
     cursor: pointer;
 }
+
 .reload-btn:hover {
     color: rgba(69, 248, 130, 0.66);
 }
@@ -264,8 +274,7 @@ const goToDetail = (agentId) => {
 }
 
 .reload-btn .loading,
-.reload-btn.loading .not-loading
-{
+.reload-btn.loading .not-loading {
     display: none;
 }
 
@@ -283,10 +292,12 @@ const goToDetail = (agentId) => {
     padding: 24px 32px;
     min-height: 320px;
 }
+
 .memegent-item.fake {
     opacity: 0.6;
 }
-.memegent-item.fake .mask{
+
+.memegent-item.fake .mask {
     position: absolute;
     left: 0;
     right: 0;
@@ -369,21 +380,26 @@ const goToDetail = (agentId) => {
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
 .memegent-card .memegent-card-content .status {
     text-align: center;
     font-size: 20px;
     margin-top: 16px;
 }
+
 .memegent-card .memegent-card-content .status .enabled {
     color: rgba(69, 248, 130);
 }
+
 .memegent-card .memegent-card-content .status .disabled {
     color: #555;
 }
+
 .telegram-link {
     position: relative;
     height: 36px;
 }
+
 .telegram-link .telegram-link-bg {
     position: absolute;
     top: 0;
@@ -395,10 +411,12 @@ const goToDetail = (agentId) => {
     border-radius: 3px;
     opacity: 0.4;
 }
+
 .telegram-link .telegram-link-content {
     position: relative;
     height: 100%;
 }
+
 .telegram-link .telegram-link-content .tg-logo {
     position: absolute;
     left: 0;
@@ -409,6 +427,7 @@ const goToDetail = (agentId) => {
     line-height: 36px;
     text-align: center;
 }
+
 .telegram-link .telegram-link-content .tg-link-content {
     position: relative;
     height: 36px;
@@ -419,39 +438,47 @@ const goToDetail = (agentId) => {
     background-color: #111;
     opacity: 0.5;
 }
+
 .stats-item {
     margin-top: 10px;
     margin-left: 16px;
     font-family: 'Berlin Sans FB';
 }
+
 .stats-item .stats-name {
     font-size: 16px;
 }
+
 .stats-item .stats-value {
     color: white;
     font-size: 30px;
 }
+
 .emissions {
     position: relative;
     font-family: 'Berlin Sans FB Demi';
     text-align: center;
 }
+
 .emissions .emissions-title {
     font-size: 30px;
     margin-top: 24px;
 }
+
 .emissions .awe-logo {
     position: relative;
     width: 30%;
     margin: 0 auto;
     margin-top: 12px;
 }
+
 .emissions .emissions-num {
     font-size: 40px;
     line-height: 40px;
     color: white;
     text-shadow: -1px 3px 0px rgba(69, 248, 130, 0.66);
 }
+
 .edit-btn-area,
 .memegent-item.fake:hover .edit-btn-area {
     position: relative;
@@ -459,9 +486,11 @@ const goToDetail = (agentId) => {
     width: 100%;
     height: 50px;
 }
+
 .memegent-item:hover .edit-btn-area {
     display: block;
 }
+
 .btn.btn-primary.edit-memegent-btn {
     position: absolute;
     left: 230px;

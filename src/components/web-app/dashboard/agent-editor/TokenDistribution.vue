@@ -54,7 +54,7 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
 <template>
     <section :class="{ 'config-section': true, 'token-distribution': true, 'open': sectionOpen }">
 
-        <h3 class="section-title">
+        <h3 class="section-title" @click="sectionOpen = !!(agentData.awe_agent.awe_token_enabled && !sectionOpen)">
             <div
                 :class="{ 'section-completed': true, 'yes': agentData.awe_agent.awe_token_enabled && agentStore.tokenReady, 'no': !agentStore.tokenReady || !agentData.awe_agent.awe_token_enabled }">
                 <div class="yes">
@@ -71,8 +71,7 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                         role="switch">
                 </div>
             </div>
-            <div class="collapse-toggle"
-                @click="sectionOpen = !!(agentData.awe_agent.awe_token_enabled && !sectionOpen)">
+            <div class="collapse-toggle">
                 <i class="fa-solid fa-chevron-left"></i>
             </div>
         </h3>
@@ -113,7 +112,7 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                 <label class="form-label">Round number</label>
                 <div class="row">
                     <div class="col col-9 round-number">
-                        Round {{ agentStatsData.current_round  }}
+                        Round {{ agentStatsData.current_round }}
                     </div>
                     <div class="col col-3 actions">
                         <button v-if="!resetting" type="button" class="btn btn-secondary" data-bs-toggle="modal"
@@ -155,7 +154,7 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
             <div class="mb-3 token-left">
                 <div class="row">
                     <div class="col col-9">
-                        <label class="form-label">Memegent account:</label>
+                        <label class="form-label">Memegent pool:</label>
                         <span class="value"><span
                                 :class="{ 'num': true, 'zero': agentStatsData.awe_token_quote === 0 }">{{
                                     agentStatsData.awe_token_quote }}.00</span> AWE</span>

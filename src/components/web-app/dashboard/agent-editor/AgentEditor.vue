@@ -7,7 +7,7 @@ import ImageGeneration from './ImageGeneration.vue';
 import PfpUpload from './PfpUpload.vue';
 const router = useRouter()
 const currentRoute = router.currentRoute.value
-import {alert} from '@/messages'
+import { alert } from '@/messages'
 import { useAgentStore } from '@/stores/agent';
 import { storeToRefs } from 'pinia';
 
@@ -29,16 +29,16 @@ const triggerSave = () => {
 
 const waitSave = (timestamp) => {
     setTimeout(async () => {
-        if(timestamp !== triggerTimestamp) return
+        if (timestamp !== triggerTimestamp) return
 
         let err = null
-        if(agentStore.currentAgent.enabled) {
+        if (agentStore.currentAgent.enabled) {
             err = agentStore.validateForEnable()
         } else {
             err = agentStore.validateForSave()
         }
 
-        if(err) {
+        if (err) {
             alert("Memegent not save! " + err, "danger", 5000)
             return
         }
@@ -77,7 +77,7 @@ const enableAgent = (event) => {
     } else {
         // Enable agent
         const err = agentStore.validateForEnable()
-        if(err) {
+        if (err) {
             alert("Can not enable Memegent: " + err, "danger", 5000)
             event.preventDefault()
             return
@@ -88,7 +88,7 @@ const enableAgent = (event) => {
 };
 
 const back = async () => {
-    router.replace({'name': 'dashboard'})
+    router.replace({ 'name': 'dashboard' })
 }
 
 const collapsingSections = reactive({
@@ -107,7 +107,7 @@ onMounted(async () => {
             () => {
                 triggerSave()
             },
-            {deep: true}
+            { deep: true }
         )
 
     } catch (e) {
@@ -130,16 +130,19 @@ onMounted(async () => {
         <form novalidate>
             <div class="row basic-info">
                 <div class="col col-3">
-                    <div class="memegent-head" :class="{'memegent-head': true, 'active': agentData.enabled}">
+                    <div class="memegent-head" :class="{ 'memegent-head': true, 'active': agentData.enabled }">
                         <div class="memegent-card-bg"></div>
                         <div class="memegent-card-content">
                             <pfp-upload :agent-id="currentRoute.params.agent_id"></pfp-upload>
                             <div class="name">
-                                <input type="text" :class="{'form-control': true, 'is-invalid': agentData.name === ''}" v-model="agentData.name" />
+                                <input type="text"
+                                    :class="{ 'form-control': true, 'is-invalid': agentData.name === '' }"
+                                    v-model="agentData.name" />
                             </div>
                             <div class="status">
                                 <div class="form-check form-switch">
-                                    <input id="enableAgent" class="form-check-input" type="checkbox" role="switch" :checked="agentData.enabled" @click="enableAgent" />
+                                    <input id="enableAgent" class="form-check-input" type="checkbox" role="switch"
+                                        :checked="agentData.enabled" @click="enableAgent" />
                                     <label class="form-check-label" for="enableAgent">
                                         <div class="enabled" v-if="agentData.enabled">
                                             <span class="text">Alive</span>
@@ -160,9 +163,10 @@ onMounted(async () => {
                 </div>
             </div>
 
-            <section :class="{'config-section': true, 'open': collapsingSections.tg}">
-                <h3 class="section-title">
-                    <div :class="{'section-completed': true, 'yes': agentStore.tgBotReady, 'no': !agentStore.tgBotReady}">
+            <section :class="{ 'config-section': true, 'open': collapsingSections.tg }">
+                <h3 class="section-title" @click="collapsingSections.tg = !collapsingSections.tg">
+                    <div
+                        :class="{ 'section-completed': true, 'yes': agentStore.tgBotReady, 'no': !agentStore.tgBotReady }">
                         <div class="yes">
                             <i class="fa-solid fa-circle-check"></i>
                         </div>
@@ -171,53 +175,49 @@ onMounted(async () => {
                         </div>
                     </div>
                     <div class="text">Telegram Bot</div>
-                    <div class="collapse-toggle" @click="collapsingSections.tg = !collapsingSections.tg">
+                    <div class="collapse-toggle">
                         <i class="fa-solid fa-chevron-left"></i>
                     </div>
                 </h3>
                 <div class="section-body">
                     <blockquote class="blockquote">
                         <ul>
-                            <li>1. Create the bot using the <a href="https://t.me/botfather" target="_blank">BotFather</a> in Telegram, and copy the username and token here.</li>
-                            <li>2. In a DM with BotFather, Menu -> Edit bot -> Choose your bot -> Bot settings -> Group privacy -> Turn off.</li>
+                            <li>1. Create the bot using the <a href="https://t.me/botfather"
+                                    target="_blank">BotFather</a> in Telegram, and copy the username and token here.
+                            </li>
+                            <li>2. In a DM with BotFather, Menu -> Edit bot -> Choose your bot -> Bot settings -> Group
+                                privacy -> Turn off.</li>
                         </ul>
                     </blockquote>
 
                     <div class="mb-3">
                         <label for="tg-username" class="form-label">Telegram username</label>
-                        <input
-                            v-model="agentData.tg_bot.username"
-                            type="text"
-                            :class="{'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.tg_bot.username === ''}"
-                            id="tg-username"
-                            placeholder="Telegram username" />
+                        <input v-model="agentData.tg_bot.username" type="text"
+                            :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.tg_bot.username === '' }"
+                            id="tg-username" placeholder="Telegram username" />
                     </div>
 
                     <div class="mb-3">
                         <label for="tg-token" class="form-label">Token</label>
-                        <input
-                            v-model="agentData.tg_bot.token"
-                            type="password"
-                            :class="{'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.tg_bot.token === ''}"
-                            id="tg-token"
-                            placeholder="Telegram token" />
+                        <input v-model="agentData.tg_bot.token" type="password"
+                            :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.tg_bot.token === '' }"
+                            id="tg-token" placeholder="Telegram token" />
                     </div>
 
                     <div class="mb-3">
                         <label for="welcome-message" class="form-label">Welcome message</label>
-                        <textarea
-                            v-model="agentData.tg_bot.start_message"
-                            :class="{'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.tg_bot.start_message === ''}"
-                            id="welcome-message"
-                            rows="3"
+                        <textarea v-model="agentData.tg_bot.start_message"
+                            :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.tg_bot.start_message === '' }"
+                            id="welcome-message" rows="3"
                             placeholder="Message sent to user when the user clicks start"></textarea>
                     </div>
                 </div>
             </section>
-            <section :class="{'config-section': true, 'open': collapsingSections.prompt}">
+            <section :class="{ 'config-section': true, 'open': collapsingSections.prompt }">
 
-                <h3 class="section-title">
-                    <div :class="{'section-completed': true, 'yes': agentStore.promptReady, 'no': !agentStore.promptReady}">
+                <h3 class="section-title" @click="collapsingSections.prompt = !collapsingSections.prompt">
+                    <div
+                        :class="{ 'section-completed': true, 'yes': agentStore.promptReady, 'no': !agentStore.promptReady }">
                         <div class="yes">
                             <i class="fa-solid fa-circle-check"></i>
                         </div>
@@ -226,7 +226,7 @@ onMounted(async () => {
                         </div>
                     </div>
                     <div class="text">Characteristics</div>
-                    <div class="collapse-toggle" @click="collapsingSections.prompt = !collapsingSections.prompt">
+                    <div class="collapse-toggle">
                         <i class="fa-solid fa-chevron-left"></i>
                     </div>
                 </h3>
@@ -234,18 +234,17 @@ onMounted(async () => {
                 <div class="section-body">
                     <blockquote class="blockquote">
                         <p>
-                            The main configuration of the Memegent. Describe the charateristics and behaviors of your Memegent as detail as possible.
-                            Give some examples of the conversation. An example config for the Pepegent <a href="javascript:void(0)" target="_blank">can be found here</a>.
+                            The main configuration of the Memegent. Describe the charateristics and behaviors of your
+                            Memegent as detail as possible.
+                            Give some examples of the conversation. An example config for the Pepegent <a
+                                href="javascript:void(0)" target="_blank">can be found here</a>.
                         </p>
                     </blockquote>
 
                     <div class="mb-3">
-                        <textarea
-                            v-model="agentData.awe_agent.llm_config.prompt_preset"
-                            :class="{'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.llm_config.prompt_preset === ''}"
-                            id="prompt-text"
-                            rows="15"
-                            placeholder="Characteristics of the Memegent"></textarea>
+                        <textarea v-model="agentData.awe_agent.llm_config.prompt_preset"
+                            :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.llm_config.prompt_preset === '' }"
+                            id="prompt-text" rows="15" placeholder="Characteristics of the Memegent"></textarea>
                     </div>
                 </div>
             </section>
@@ -254,10 +253,10 @@ onMounted(async () => {
             <image-generation></image-generation>
         </form>
     </div>
-    <div  v-if="saving" class="saving loading spinner-border text-light" role="status">
+    <div v-if="saving" class="saving loading spinner-border text-light" role="status">
         <span class="visually-hidden">Saving...</span>
     </div>
-    <div v-if="savedAnimating" :class="{'saved': saved, 'save-completed': true}">
+    <div v-if="savedAnimating" :class="{ 'saved': saved, 'save-completed': true }">
         <i class="fa-solid fa-circle-check"></i>
     </div>
 </template>
@@ -282,6 +281,7 @@ onMounted(async () => {
 .basic-info {
     margin-top: 48px;
 }
+
 .memegent-head {
     position: relative;
     width: 100%;
@@ -316,6 +316,7 @@ onMounted(async () => {
     height: 36px;
     line-height: 36px;
 }
+
 .memegent-head .memegent-card-content .status .form-check {
     text-align: right;
 }
@@ -327,6 +328,7 @@ onMounted(async () => {
 .memegent-head .memegent-card-content .status .enabled {
     color: rgba(69, 248, 130);
 }
+
 .memegent-head .memegent-card-content .status .disabled {
     color: #555;
 }
@@ -343,6 +345,7 @@ onMounted(async () => {
     height: 20px;
     line-height: 36px;
 }
+
 .config-section {
     position: relative;
     display: block;
@@ -356,12 +359,13 @@ onMounted(async () => {
     padding: 24px 36px;
     margin-top: 24px;
 }
-.config-section .section-title
-{
+
+.config-section .section-title {
     font-family: 'Berlin Sans FB Demi';
+    cursor: pointer;
 }
-.config-section .section-title::after
-{
+
+.config-section .section-title::after {
     content: "";
     display: none;
     background-image: url(/src/assets/images/title_shape.svg);
@@ -369,9 +373,11 @@ onMounted(async () => {
     height: 5px;
     margin: 20px 0px 0px;
 }
+
 .config-section.open .section-title::after {
     display: block;
 }
+
 .config-section .section-title .section-completed {
     position: absolute;
     width: 46px;
@@ -379,16 +385,17 @@ onMounted(async () => {
     text-align: center;
     line-height: 46px;
 }
+
 .config-section .section-title .section-completed .yes {
     color: rgba(69, 248, 130);
 }
+
 .config-section .section-title .section-completed .no {
     color: #666;
 }
 
 .config-section .section-title .section-completed.yes .no,
-.config-section .section-title .section-completed.no .yes
- {
+.config-section .section-title .section-completed.no .yes {
     display: none;
 }
 
@@ -413,11 +420,10 @@ onMounted(async () => {
     right: 36px;
     top: 24px;
     text-align: center;
-    cursor: pointer;
     transition: all 0.1s linear;
 }
 
-.config-section .collapse-toggle:hover {
+.config-section .section-title:hover .collapse-toggle {
     color: rgba(69, 248, 130);
 }
 
