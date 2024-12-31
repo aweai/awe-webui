@@ -5,6 +5,7 @@
         "contracts": {
             "awe_metadata_address": "FuFDmG2tuTUzKA3jV3ntQ9VmaST5usXFDsCBFVkUM1PF"
         },
-        "system_payer_public_key": "AVdkHnDJJmiBQeTJKqnknsqpcS8gLjVo5dB4GF3RzDqn"
+        "system_payer_public_key": "AVdkHnDJJmiBQeTJKqnknsqpcS8gLjVo5dB4GF3RzDqn",
+        "agent_creator_staking_lock": 90
     }
 }

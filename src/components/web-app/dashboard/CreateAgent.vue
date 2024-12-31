@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { useWalletStore } from '@/stores/wallet';
 import { useAweClient } from '@/sol-client/client';
 import { alert, waiting, closeWaiting } from '@/messages.js';
+import config from '@/config.json'
 
 const walletStore = useWalletStore()
 
@@ -10,7 +11,7 @@ const loading = ref(false)
 const createAgent = async () => {
 
     const confirmModal = window.bootstrap.Modal.getInstance(document.getElementById('confirmPayment'));
-    if(confirmModal)
+    if (confirmModal)
         confirmModal.hide()
 
     if (loading.value)
@@ -62,7 +63,7 @@ const confirmCreateAgent = () => {
         <a class="btn btn-primary" href="javascript:void(0)" @click="confirmCreateAgent">
             <span>Create Memegent</span>
         </a>
-        <div class="price">Price: <span class="num">{{ walletStore.agentPriceStr }}</span> AWE</div>
+        <div class="price">Staking Amount: <span class="num">{{ walletStore.agentPriceStr }}</span> AWE</div>
         <div class="balance">
             Your balance:
             <span :class="{ 'num': true, 'insufficient': walletStore.balanceAwe < walletStore.agentPrice }">{{
@@ -71,7 +72,8 @@ const confirmCreateAgent = () => {
                 }}</span> SOL
         </div>
     </div>
-    <div class="awe-modal modal fade" id="confirmPayment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="createNewMemegent">
+    <div class="awe-modal modal fade" id="confirmPayment" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="createNewMemegent">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -81,16 +83,28 @@ const confirmCreateAgent = () => {
                 <div class="modal-body">
                     <div class="row confirm-message justify-content-center">
                         <div class="col col-10">
-                            Please confirm the payment information below. A new Memegent will be created for you after the payment transaction is confirmed.
+                            Please confirm the staking below. The staked tokens will be transferred to the
+                            system account,
+                            and will be returned after you terminate the Memegent.
                         </div>
                     </div>
                     <div class="row confirm-item price-confirm">
                         <div class="col col-1"></div>
                         <div class="col col-2">
-                            Price
+                            Staking
                         </div>
                         <div class="col col-8 value">
                             <span class="num">{{ walletStore.agentPriceStr }}</span> AWE
+                        </div>
+                        <div class="col col-1"></div>
+                    </div>
+                    <div class="row confirm-item price-confirm">
+                        <div class="col col-1"></div>
+                        <div class="col col-2">
+                            Min lock
+                        </div>
+                        <div class="col col-8 value">
+                            <span class="num">{{ config.solana.agent_creator_staking_lock }}</span> Days
                         </div>
                         <div class="col col-1"></div>
                     </div>
@@ -141,13 +155,13 @@ const confirmCreateAgent = () => {
 .balance .num.insufficient {
     color: #842029;
 }
+
 #confirmPayment .confirm-message {
     margin-top: 24px;
     margin-bottom: 48px;
 }
 
-#confirmPayment .confirm-message .col::after
-{
+#confirmPayment .confirm-message .col::after {
     content: "";
     display: block;
     background-image: url(/src/assets/images/title_shape.svg);
@@ -155,19 +169,24 @@ const confirmCreateAgent = () => {
     height: 5px;
     margin: 20px 0px 0px;
 }
+
 #confirmPayment .confirm-item {
     line-height: 40px;
 }
+
 #confirmPayment .confirm-item .value {
     text-align: right;
 }
+
 #confirmPayment .price-confirm .num {
     font-size: 40px;
     color: rgba(69, 248, 130);
 }
+
 #confirmPayment .address-confirm {
     margin-bottom: 24px;
 }
+
 #confirmPayment .address-confirm .value {
     font-size: 16px;
 }

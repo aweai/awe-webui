@@ -11,7 +11,7 @@ import {
 } from '@solana/spl-token'
 import idl from './awe.json'
 import { Buffer } from 'buffer'
-import { config } from 'process'
+import config from '@/config'
 
 const preflightCommitment = 'processed'
 const commitment = 'confirmed'

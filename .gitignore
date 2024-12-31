@@ -32,3 +32,4 @@ coverage
 .yarn
 config.json
 *.zip
+.yarnrc.yml
