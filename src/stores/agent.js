@@ -230,5 +230,9 @@ export const useAgentStore = defineStore('agent', {
             const extractedAgentData = JSON.parse(JSON.stringify(this.$state.currentAgent))
             await userAgentAPI.updateUserAgent(this.$state.currentAgentId, extractedAgentData)
         },
+
+        async terminateAgent() {
+            return await userAgentAPI.terminateAgent(this.$state.currentAgentId)
+        }
     },
 })

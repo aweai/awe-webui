@@ -70,6 +70,10 @@ class UserAgentAPI extends BaseApi {
         form.append('file', file)
         return this.getHttpClient().post("/user-agents/" + agent_id + "/pfp", form)
     }
+
+    async terminateAgent(agent_id) {
+        return this.getHttpClient().delete("/user-agents/" + agent_id)
+    }
 }
 
 const userAgentAPI = new UserAgentAPI()
