@@ -22,6 +22,8 @@ const emptyAgent = {
             max_token_per_tx: 10,
             max_token_per_round: 100,
             user_price: 100,
+            max_invocation_per_round: 0,
+            max_invocation_per_payment: 0
         },
         image_generation_enabled: false,
         image_generation_args: {
@@ -109,7 +111,7 @@ export const useAgentStore = defineStore('agent', {
             return (
                 state.currentAgent.awe_agent.awe_token_config.max_token_per_round > 0 &&
                 state.currentAgent.awe_agent.awe_token_config.max_token_per_tx > 0 &&
-                state.currentAgent.awe_agent.awe_token_config.user_price > 0
+                state.currentAgent.awe_agent.awe_token_config.user_price >= 10
             )
         },
     },

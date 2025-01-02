@@ -28,7 +28,7 @@ const signing = ref(false)
 const finished = ref(false)
 const noBalance = ref(false)
 
-const mismatch = computed(() => publicKey == userWallet)
+const mismatch = computed(() => publicKey.value != userWallet)
 
 watch(connected, async (newValue, oldValue) => {
     if(newValue && !oldValue){
@@ -114,8 +114,8 @@ watch(connected, async (newValue, oldValue) => {
                 Please use the bound wallet to approve the transaction,
                 or rebind a new wallet using the bot.
             </p>
-            <p>Connected: {{ publicKey }}</p>
-            <p>Bound: {{ userWallet }}</p>
+            <p class="plain-text">Connected: {{ publicKey }}</p>
+            <p class="plain-text">Bound: {{ userWallet }}</p>
         </div>
     </div>
 </div>
@@ -142,5 +142,8 @@ watch(connected, async (newValue, oldValue) => {
 </div>
 </template>
 <style scoped>
-
+.message-box .plain-text {
+    font-family:'Barlow', sans-serif;
+    font-weight: normal;
+}
 </style>

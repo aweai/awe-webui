@@ -163,24 +163,38 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
             </div>
 
             <div class="mb-3">
-                <label for="user-payment-per-round" class="form-label">Required user payment per round</label>
+                <label for="user-payment-per-round" class="form-label">User payment price (at least 10)</label>
                 <input v-model="agentData.awe_agent.awe_token_config.user_price" type="number"
-                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.user_price <= 0 }"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.user_price < 10 }"
                     id="user-payment-per-round">
             </div>
 
             <div class="mb-3">
-                <label for="max-per-tx" class="form-label">Max amount allowed per transaction</label>
+                <label for="max-per-tx" class="form-label">Max transfer amount allowed per transaction</label>
                 <input v-model="agentData.awe_agent.awe_token_config.max_token_per_tx" type="number"
                     :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.max_token_per_tx <= 0 }"
                     id="max-per-tx">
             </div>
 
             <div class="mb-3">
-                <label for="max-per-round" class="form-label">Max amount allowed per round</label>
+                <label for="max-per-round" class="form-label">Max transfer amount allowed per round</label>
                 <input v-model="agentData.awe_agent.awe_token_config.max_token_per_round" type="number"
                     :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.max_token_per_round <= 0 }"
                     id="max-per-round">
+            </div>
+
+            <div class="mb-3">
+                <label for="max_invocation_per_round" class="form-label">Max user invocation allowed per round</label>
+                <input v-model="agentData.awe_agent.awe_token_config.max_invocation_per_round" type="number"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.max_invocation_per_round < 0 }"
+                    id="max_invocation_per_round">
+            </div>
+
+            <div class="mb-3">
+                <label for="max_invocation_per_payment" class="form-label">Max user invocation allowed per payment</label>
+                <input v-model="agentData.awe_agent.awe_token_config.max_invocation_per_payment" type="number"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.max_invocation_per_payment < 0 }"
+                    id="max_invocation_per_payment">
             </div>
         </div>
     </section>
