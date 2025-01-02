@@ -12,12 +12,13 @@ const route = useRoute()
 const agentId = route.params.agent_id
 const tgUserId = route.params.tg_user_id
 const userWallet = route.params.wallet_address
+const action = route.query.action
 const amount = route.query.amount
 const tgBotUsername = route.query.tg_bot
 
 const invalid = ref(false)
 
-if(!agentId || !tgUserId || !userWallet || !amount || !tgBotUsername) {
+if(!agentId || !tgUserId || !userWallet || !amount || !tgBotUsername || !action) {
     alert("Invalid request. Please DM the Telegram Bot to get a new link.", "danger", 5000)
     invalid.value = true
 }
@@ -72,7 +73,7 @@ watch(connected, async (newValue, oldValue) => {
         }
 
         try {
-            await userWalletAPI.approve(agentId, tgUserId, tx_hash)
+            await userWalletAPI.approve(agentId, tgUserId, action, amount, tx_hash)
         } catch (e) {
             console.error(e)
             alert("Error connecting to Awe server. Please refresh the page and try again.", "danger", 5000)
