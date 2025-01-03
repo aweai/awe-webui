@@ -210,9 +210,9 @@ const goToDetail = (agentId) => {
                                             <div class="stats-value" v-else>-</div>
                                         </div>
                                         <div class="stats-item">
-                                            <div class="stats-name">Round Transferred</div>
+                                            <div class="stats-name">Staking Pool</div>
                                             <div class="stats-value" v-if="agent.agent_data">{{
-                                                agent.agent_data.awe_token_round_transferred.toLocaleString() }}</div>
+                                                agent.agent_data.awe_token_staking.toLocaleString() }}</div>
                                             <div class="stats-value" v-else>-</div>
                                         </div>
                                     </div>
@@ -224,7 +224,7 @@ const goToDetail = (agentId) => {
                                             <div class="stats-value" v-else>-</div>
                                         </div>
                                         <div class="stats-item">
-                                            <div class="stats-name">Pool</div>
+                                            <div class="stats-name">Game Pool</div>
                                             <div class="stats-value" v-if="agent.agent_data">{{
                                                 agent.agent_data.awe_token_quote.toLocaleString() }}</div>
                                             <div class="stats-value" v-else>-</div>
@@ -238,7 +238,7 @@ const goToDetail = (agentId) => {
                                     <div class="awe-logo">
                                         <img src="@/assets/images/awe-logo-round.png" />
                                     </div>
-                                    <div class="emissions-num">0</div>
+                                    <div class="emissions-num">{{  agent.agent_data.total_emissions.toLocaleString()  }}</div>
                                 </div>
                             </div>
                         </div>

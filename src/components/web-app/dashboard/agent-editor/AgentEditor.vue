@@ -1,16 +1,17 @@
 <script setup>
 import { onMounted, reactive, ref, watch } from 'vue'
-import { useRouter } from 'vue-router';
-import StatsCharts from './StatsCharts.vue';
-import TokenDistribution from './TokenDistribution.vue';
-import ImageGeneration from './ImageGeneration.vue';
-import DangerZone from './DangerZone.vue';
-import PfpUpload from './PfpUpload.vue';
+import { useRouter } from 'vue-router'
+import TopCharts from './TopCharts.vue'
+import TokenDistribution from './TokenDistribution.vue'
+import ImageGeneration from './ImageGeneration.vue'
+import DangerZone from './DangerZone.vue'
+import PfpUpload from './PfpUpload.vue'
+import AgentStats from './AgentStats.vue'
 const router = useRouter()
 const currentRoute = router.currentRoute.value
 import { alert } from '@/messages'
-import { useAgentStore } from '@/stores/agent';
-import { storeToRefs } from 'pinia';
+import { useAgentStore } from '@/stores/agent'
+import { storeToRefs } from 'pinia'
 
 const agentStore = useAgentStore()
 
@@ -21,7 +22,7 @@ const saving = ref(false)
 const saved = ref(true)
 const savedAnimating = ref(false)
 
-let triggerTimestamp = 0;
+let triggerTimestamp = 0
 
 const triggerSave = () => {
     triggerTimestamp = Date.now()
@@ -86,13 +87,14 @@ const enableAgent = (event) => {
 
         agentStore.currentAgent.enabled = true
     }
-};
+}
 
 const back = async () => {
     router.replace({ 'name': 'dashboard' })
 }
 
 const collapsingSections = reactive({
+    "stats": true,
     "tg": false,
     "prompt": false
 })
@@ -160,9 +162,11 @@ onMounted(async () => {
                     </div>
                 </div>
                 <div class="col col-9">
-                    <stats-charts :agent-id="currentRoute.params.agent_id"></stats-charts>
+                    <top-charts :agent-id="currentRoute.params.agent_id"></top-charts>
                 </div>
             </div>
+
+            <agent-stats v-if="agentData.enabled"></agent-stats>
 
             <section :class="{ 'config-section': true, 'open': collapsingSections.tg }">
                 <h3 class="section-title" @click="collapsingSections.tg = !collapsingSections.tg">
