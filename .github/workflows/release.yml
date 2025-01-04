@@ -1,59 +1,48 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Build and Deploy
+name: Build the release artifact
 
 on:
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
 
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
-  contents: read
+    contents: read
 
 # Allow one concurrent deployment
 concurrency:
-  group: 'releases'
-  cancel-in-progress: true
+    group: 'releases'
+    cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+    # Single deploy job since we're just deploying
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
 
-      - name: Enable Corepack
-        run: corepack enable
+            - name: Enable Corepack
+              run: corepack enable
 
-      - name: Install dependencies
-        run: yarn install
+            - name: Install dependencies
+              run: yarn install
 
-      - name: Create config file
-        run: cp ./src/config.production.json ./src/config.json
+            - name: Create config file
+              run: cp ./src/config.production.json ./src/config.json
 
-      - name: Build
-        run: yarn build
+            - name: Build
+              run: yarn build
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-            name: webui-release
-            path: ./dist
-            if-no-files-found: error
-            retention-days: 14
-
-      - name: rsync deployments
-        uses: burnett01/rsync-deployments@7.0.1
-        with:
-            switches: -avzr --delete
-            path: ./dist/
-            remote_path: ~/awe-home/
-            remote_host: ${{ secrets.DEPLOY_HOST }}
-            remote_port: ${{ secrets.DEPLOY_PORT }}
-            remote_user: ${{ secrets.DEPLOY_USER }}
-            remote_key: ${{ secrets.DEPLOY_KEY }}
+            - name: Upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: webui-release
+                  path: ./dist
+                  if-no-files-found: error
+                  retention-days: 14
