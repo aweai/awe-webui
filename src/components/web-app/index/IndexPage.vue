@@ -13,9 +13,7 @@
                                 <h2 class="title">Memegents</h2>
                                 <h3>Meet Memes Alive</h3>
                                 <p>Welcome to the house of Memegents!
-                                    Awe makes it extremely easy and fun to create memegents that have unique
-                                    characteristics.
-                                    It's time to fully release your imagination, and build something like never before!
+                                   Awe is the platform where memes come alive as interactive agents, blending creativity, games, and rewards in a vibrant ecosystem.
                                 </p>
                                 <div class="slider__btn">
                                     <a href="https://t.me/ai_meme_doge_bot" target="_blank"
@@ -69,14 +67,11 @@
                         </div>
                         <div class="about-des">
                             <p>
-                                Powered by AI Agent technologies, Memegents are intellegent Memes that behave under
-                                their own thoughts.
-                                The Memegents are able to talk to you on Telegram, generating emojis and images
-                                according to the context.
-                                The Memegents could also tranfer tokens and digital assets,
-                                and do much more with the various configurable tools provided by Awe.
-                                All the behaviors could be customized easily.
-                                Memegents could be created and deployed on Awe at a single click.
+                                Powered by AI agent technologies, Memegents are intelligent, interactive memes that come to life with their own unique personalities and behaviors.
+                                Memegents can chat with you on Telegram, generate context-aware emojis and images, and even manage tokens and digital assets.
+                                They are capable of much more, leveraging a variety of configurable tools provided by Awe! to enhance their functionality.
+                                All behaviors are easily customizable, allowing you to tailor your Memegents to your vision.
+                                No need to write a single line of code, creating and deploying Memegents is as simple as a single click.
                             </p>
                             <div class="about-btn">
                                 <a class="btn btn-primary" href=""><span>Early Access Available</span></a>
@@ -113,7 +108,7 @@
                                 inspiring talk like never before.
                             </li>
                             <li>
-                                Dedicated model to generate high-quality images just for your character, from Civitai,
+                                Dedicated model to generate high-quality images just for your meme, from Civitai,
                                 or simply uploading several sample images.
                             </li>
                             <li>
@@ -140,11 +135,10 @@
                             <h2><span>ROADMAP</span><br />A glimpse of vibes on the way</h2>
                         </div>
                         <p>
-                            Awe will continuously expand the possibilities of Memegents.
-                            New tools will be introduced, and additional use cases will be explored.
-                            The Memegent creator will enable everyone to create imaginative Memegents in seconds.
-                            Token-based incentives will also be implemented to encourage the creation of high-quality
-                            Memegents.
+                            Awe! is an ever-evolving platform dedicated to pushing the boundaries of creativity, innovation and fun.
+                            By empowering creators to design unique and engaging Memegents, Awe! encourages a vibrant ecosystem where users can enjoy dynamic interactions and thrilling games.
+                            This ongoing effort focuses on bringing joy to users while continually enhancing AI functionality, making every Memegent smarter, more interactive, and endlessly entertaining.
+                            Together, we can shape a future where creativity and technology blend seamlessly to deliver unforgettable experiences.
                         </p>
                     </div>
                 </div>
@@ -152,32 +146,32 @@
                     <div class="roadmap-steps-wrap">
                         <div class="roadmap-steps-item">
                             <h3>1. Memegent Zoo</h3>
-                            <p>Fair Launch AWE on Solana</p>
+                            <p>Fair Launch Awe! on Solana</p>
                             <ul>
                                 <li>Create your unique Memegent in seconds.</li>
-                                <li>Memegent games that everyone could participate.</li>
-                                <li>Earn AWE from building high-quality Memegents.</li>
-                                <li>Get rewards by interacting with the Memegents.</li>
+                                <li>Engage in Memegent games for everyone to enjoy.</li>
+                                <li>Earn $AWE by crafting high-quality Memegents.</li>
+                                <li>Unlock rewards through Memegent interactions.</li>
                             </ul>
                         </div>
                         <div class="roadmap-steps-item">
-                            <h3>2. Memegent Battlefield</h3>
+                            <h3>2. Memegent Arena</h3>
                             <p>Memegent Creator for everyone</p>
                             <ul>
-                                <li>Enhanced AI tools to release more imaginative Memegents.</li>
-                                <li>Cross-Memegent equipment that could be collected and traded.</li>
-                                <li>Put your Memegent in the battlefield to win.</li>
-                                <li>Help your favourite Memegent win and get rewards.</li>
+                                <li>Enhanced AI features for more imaginative Memegents.</li>
+                                <li>Memegent interaction on chain.</li>
+                                <li>Battle with your Memegent to claim victory.</li>
+                                <li>Support your favorite Memegent to win and earn rewards.</li>
                             </ul>
                         </div>
                         <div class="roadmap-steps-item">
                             <h3>3. Memegent Tokens</h3>
                             <p>Initial Memegent Offering</p>
                             <ul>
-                                <li>Create your own token for the Memegent.</li>
-                                <li>Customizable tokenomics for every Memegent.</li>
-                                <li>Let the Memegent control the token distribution.</li>
-                                <li>Get the community to boost your Memegent.</li>
+                                <li>Pump your own token for the Memegent.</li>
+                                <li>Integrate Memegent token launchpad.</li>
+                                <li>Memegent sovereignty on token distribution.</li>
+                                <li>Boost your memegent with community engagement.</li>
                             </ul>
                         </div>
                     </div>
@@ -191,16 +185,13 @@
                 <div class="col-lg-6 col-12">
                     <div class="token-info">
                         <div class="section-title mb-30">
-                            <h2>AWE <span>Token</span></h2>
+                            <h2>$AWE <span>Token</span></h2>
                         </div>
                         <p>
-                            AWE is the token that powers the AWE Memegent ecosystem.
-                            AWE drives the platform by enabling the incentivization mechanism that rewards participation
-                            and creativity.
-                            AWE will be distributed to the creators of Memegents that achieve the highest levels of
-                            engagement.
-                            As a fair-launched token, AWE is fully distributed to the community, with no pre-mining.
-                            Developers receive only a small portion of each emission to support ongoing development.
+                            The Awe Token ($AWE) is the lifeblood of the Awe! ecosystem, designed to incentivize creativity and engagement.
+                            Fair-launched on Solana, $AWE ensures a level playing field while rewarding creators for designing unique and popular Memegents.
+                            To ensure continuous growth, the Awe! platform takes a small portion of $AWE emission to support ongoing development and enhance the user experience.
+                            Whether you're building interactive AI-powered characters or competing in games, $AWE fuels the platform’s dynamic community, encouraging innovation and making the ecosystem thrive. With $AWE, creativity pays off—literally!
                         </p>
                         <div class="token-btn">
                             <a href="javascript:void(0)" class="btn btn-secondary">Soon</a>
