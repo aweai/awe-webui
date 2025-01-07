@@ -73,9 +73,6 @@
                                 All behaviors are easily customizable, allowing you to tailor your Memegents to your vision.
                                 No need to write a single line of code, creating and deploying Memegents is as simple as a single click.
                             </p>
-                            <div class="about-btn">
-                                <a class="btn btn-primary" href=""><span>Early Access Available</span></a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -193,8 +190,8 @@
                             To ensure continuous growth, the Awe! platform takes a small portion of $AWE emission to support ongoing development and enhance the user experience.
                             Whether you're building interactive AI-powered characters or competing in games, $AWE fuels the platform’s dynamic community, encouraging innovation and making the ecosystem thrive. With $AWE, creativity pays off—literally!
                         </p>
-                        <div class="token-btn">
-                            <a href="javascript:void(0)" class="btn btn-secondary">Soon</a>
+                        <div class="token-btn" style="margin-top: 36px;">
+                            <a href="https://docs.aweai.fun/tokenomics/awe" class="btn btn-secondary" target="_blank">Read More</a>
                         </div>
                     </div>
                 </div>

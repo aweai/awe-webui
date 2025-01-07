@@ -65,10 +65,13 @@ onBeforeUnmount(() => {
                                             <a class="nav-link" href="/dashboard">Dashboard</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="https://t.me/awe" target="_blank">Telegram</a>
+                                            <a class="nav-link" href="https://docs.aweai.fun" target="_blank">Whitepaper</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="https://x.com/awe_ai" target="_blank">Twitter</a>
+                                            <a class="nav-link" href="https://docs.aweai.fun/tokenomics/awe" target="_blank">Tokenomics</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="https://x.com/_awe_ai" target="_blank">Twitter</a>
                                         </li>
                                     </ul>
                                     <div class="header-btn ms-3">
@@ -131,7 +134,7 @@ onBeforeUnmount(() => {
                             <div class="footer-el-menu">
                                 <ul class="list-wrap">
                                     <li><a href="https://aweai.fun" target="_blank">Home</a></li>
-                                    <li><a href="https://t.me/awe_ai" target="_blank">Contact us</a></li>
+                                    <li><a href="https://t.me/_awe_ai" target="_blank">Contact us</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -141,7 +144,7 @@ onBeforeUnmount(() => {
                             <h4 class="title">Community</h4>
                             <div class="footer-el-menu">
                                 <ul class="list-wrap end">
-                                    <li><a href="">X/Twitter</a></li>
+                                    <li><a href="https://t.me/_awe_ai">X/Twitter</a></li>
                                     <li><a href="">Telegram</a></li>
                                 </ul>
                             </div>
