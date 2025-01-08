@@ -187,11 +187,11 @@ onMounted(async () => {
                 <div class="section-body">
                     <blockquote class="blockquote">
                         <ul>
-                            <li>1. Create the bot using the <a href="https://t.me/botfather"
-                                    target="_blank">BotFather</a> in Telegram, and copy the username and token here.
+                            <li>
+                                Follow the
+                                <a href="https://docs.aweai.fun/memegent-guide/create-the-telegram-bot" target="_blank">instruction</a>
+                                to create Telegram Bot.
                             </li>
-                            <li>2. In a DM with BotFather, Menu -> Edit bot -> Choose your bot -> Bot settings -> Group
-                                privacy -> Turn off.</li>
                         </ul>
                     </blockquote>
 
@@ -203,7 +203,7 @@ onMounted(async () => {
                     </div>
 
                     <div class="mb-3">
-                        <label for="tg-token" class="form-label">Token</label>
+                        <label for="tg-token" class="form-label">BotFather Token</label>
                         <input v-model="agentData.tg_bot.token" type="password"
                             :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.tg_bot.token === '' }"
                             id="tg-token" placeholder="Telegram token" />
@@ -230,7 +230,7 @@ onMounted(async () => {
                             <i class="fa-solid fa-circle-xmark"></i>
                         </div>
                     </div>
-                    <div class="text">Script</div>
+                    <div class="text">Memegent Configurations</div>
                     <div class="collapse-toggle">
                         <i class="fa-solid fa-chevron-left"></i>
                     </div>
@@ -239,8 +239,8 @@ onMounted(async () => {
                 <div class="section-body">
                     <blockquote class="blockquote">
                         <p>
-                            The main configuration of the Memegent. Describe the behaviors of your
-                            Memegent as detail as possible, such as the criteria for token transfers.
+                            Describe the behaviors of your Memegent as detail as possible,
+                            such as the criteria for token transfers, the talking style.
                             Give some examples of the conversation. Examples of scripts <a
                                 href="https://docs.aweai.fun/memegent-guide/example-scripts/ai-doge" target="_blank">can be found here</a>.
                         </p>
