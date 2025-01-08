@@ -203,10 +203,10 @@ onMounted(async () => {
                     </div>
 
                     <div class="mb-3">
-                        <label for="tg-token" class="form-label">BotFather Token</label>
+                        <label for="tg-token" class="form-label">Bot token</label>
                         <input v-model="agentData.tg_bot.token" type="password"
                             :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.tg_bot.token === '' }"
-                            id="tg-token" placeholder="Telegram token" />
+                            id="tg-token" placeholder="Bot token" />
                     </div>
 
                     <div class="mb-3">

@@ -23,7 +23,7 @@ const emptyAgent = {
             max_token_per_round: 100,
             user_price: 100,
             game_pool_division: 70,
-            max_invocation_per_round: 0,
+            max_payment_per_round: 0,
             max_invocation_per_payment: 0
         },
         image_generation_enabled: false,
@@ -124,6 +124,8 @@ export const useAgentStore = defineStore('agent', {
                   && state.currentAgent.awe_agent.awe_token_config.game_pool_division <= 100
                 && Number.isInteger(state.currentAgent.awe_agent.awe_token_config.max_invocation_per_payment)
                   && state.currentAgent.awe_agent.awe_token_config.max_invocation_per_payment >= 0
+                && Number.isInteger(state.currentAgent.awe_agent.awe_token_config.max_payment_per_round)
+                  && state.currentAgent.awe_agent.awe_token_config.max_payment_per_round >= 0
             )
         },
         gamePoolReady(state) {
@@ -132,8 +134,6 @@ export const useAgentStore = defineStore('agent', {
                   && state.currentAgent.awe_agent.awe_token_config.max_token_per_round > 0
                 && Number.isInteger(state.currentAgent.awe_agent.awe_token_config.max_token_per_tx)
                   && state.currentAgent.awe_agent.awe_token_config.max_token_per_tx > 0
-                && Number.isInteger(state.currentAgent.awe_agent.awe_token_config.max_invocation_per_round)
-                  && state.currentAgent.awe_agent.awe_token_config.max_invocation_per_round >= 0
             )
         },
     },
@@ -237,7 +237,7 @@ export const useAgentStore = defineStore('agent', {
 
             if (this.$state.currentAgent.awe_agent.awe_token_enabled) {
                 if (!this.paymentReady) {
-                    return 'the User Payment is not fully configured!'
+                    return 'the Play Fee is not fully configured!'
                 }
 
                 if (!this.gamePoolReady) {

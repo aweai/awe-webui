@@ -47,10 +47,6 @@ const resetRound = async () => {
     }
 
 }
-
-watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
-    sectionOpen.value = enabled
-});
 </script>
 <template>
     <section :class="{ 'config-section': true, 'token-distribution': true, 'open': paymentSectionOpen }">
@@ -102,6 +98,12 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                 <input v-model.number="agentData.awe_agent.awe_token_config.max_invocation_per_payment" type="number" step="1"
                     :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_invocation_per_payment) || agentData.awe_agent.awe_token_config.max_invocation_per_payment < 0 }"
                     id="max_invocation_per_payment">
+            </div>
+            <div class="mb-3">
+                <label for="max_payment_per_round" class="form-label">Max play per round (0 means no limit)</label>
+                <input v-model.number="agentData.awe_agent.awe_token_config.max_payment_per_round" type="number" step="1"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_payment_per_round) || agentData.awe_agent.awe_token_config.max_payment_per_round < 0 }"
+                    id="max_payment_per_round">
             </div>
         </div>
     </section>
@@ -217,13 +219,6 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                 <input v-model.number="agentData.awe_agent.awe_token_config.max_token_per_round" type="number" step="1"
                     :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_token_per_round) || agentData.awe_agent.awe_token_config.max_token_per_round <= 0 }"
                     id="max-per-round">
-            </div>
-
-            <div class="mb-3">
-                <label for="max_invocation_per_round" class="form-label">Max player messages per round</label>
-                <input v-model.number="agentData.awe_agent.awe_token_config.max_invocation_per_round" type="number" step="1"
-                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_invocation_per_round) || agentData.awe_agent.awe_token_config.max_invocation_per_round < 0 }"
-                    id="max_invocation_per_round">
             </div>
         </div>
     </section>
