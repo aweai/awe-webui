@@ -18,6 +18,12 @@
                                 <div class="slider__btn">
                                     <a href="https://t.me/ai_meme_doge_bot" target="_blank"
                                         class="btn btn-primary"><span>Talk to One</span></a>
+                                    <a href="https://x.com/_awe_ai" target="_blank" class="community-btn">
+                                        <i class="fa-brands fa-square-x-twitter"></i>
+                                    </a>
+                                    <a href="https://t.me/+ymaC0DU64zc5YmZl" target="_blank" class="community-btn">
+                                        <i class="fa-brands fa-telegram"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -225,3 +231,18 @@
         </div>
     </section>
 </template>
+<style scoped>
+.slider__btn {
+    display: flex;
+    align-items: center;
+}
+.community-btn {
+    color: white;
+    font-size: 40px;
+    margin-left: 24px;
+}
+
+.community-btn:hover {
+    color: rgba(69, 248, 130);
+}
+</style>

@@ -70,9 +70,6 @@ onBeforeUnmount(() => {
                                         <li class="nav-item">
                                             <a class="nav-link" href="https://docs.aweai.fun/tokenomics/awe" target="_blank">Tokenomics</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="https://x.com/_awe_ai" target="_blank">Twitter</a>
-                                        </li>
                                     </ul>
                                     <div class="header-btn ms-3">
                                         <wallet-multi-button
@@ -144,8 +141,8 @@ onBeforeUnmount(() => {
                             <h4 class="title">Community</h4>
                             <div class="footer-el-menu">
                                 <ul class="list-wrap end">
-                                    <li><a href="https://t.me/_awe_ai">X/Twitter</a></li>
-                                    <li><a href="">Telegram</a></li>
+                                    <li><a href="https://t.me/_awe_ai" target="_blank">X/Twitter</a></li>
+                                    <li><a href="https://t.me/+ymaC0DU64zc5YmZl" target="_blank">Telegram</a></li>
                                 </ul>
                             </div>
                         </div>
