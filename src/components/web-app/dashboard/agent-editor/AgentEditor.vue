@@ -230,7 +230,7 @@ onMounted(async () => {
                             <i class="fa-solid fa-circle-xmark"></i>
                         </div>
                     </div>
-                    <div class="text">Characteristics</div>
+                    <div class="text">Script</div>
                     <div class="collapse-toggle">
                         <i class="fa-solid fa-chevron-left"></i>
                     </div>
@@ -239,10 +239,10 @@ onMounted(async () => {
                 <div class="section-body">
                     <blockquote class="blockquote">
                         <p>
-                            The main configuration of the Memegent. Describe the charateristics and behaviors of your
-                            Memegent as detail as possible.
-                            Give some examples of the conversation. An example config for the Pepegent <a
-                                href="javascript:void(0)" target="_blank">can be found here</a>.
+                            The main configuration of the Memegent. Describe the behaviors of your
+                            Memegent as detail as possible, such as the criteria for token transfers.
+                            Give some examples of the conversation. Examples of scripts <a
+                                href="https://docs.aweai.fun/memegent-guide/example-scripts/ai-doge" target="_blank">can be found here</a>.
                         </p>
                     </blockquote>
 

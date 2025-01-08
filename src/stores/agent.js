@@ -17,11 +17,12 @@ const emptyAgent = {
             hf_token: '',
             prompt_preset: '',
         },
-        awe_token_enabled: false,
+        awe_token_enabled: true,
         awe_token_config: {
             max_token_per_tx: 10,
             max_token_per_round: 100,
             user_price: 100,
+            game_pool_division: 70,
             max_invocation_per_round: 0,
             max_invocation_per_payment: 0
         },
@@ -114,11 +115,25 @@ export const useAgentStore = defineStore('agent', {
                 return false
             return true
         },
-        tokenReady(state) {
+        paymentReady(state) {
             return (
-                state.currentAgent.awe_agent.awe_token_config.max_token_per_round > 0 &&
-                state.currentAgent.awe_agent.awe_token_config.max_token_per_tx > 0 &&
-                state.currentAgent.awe_agent.awe_token_config.user_price >= 10
+                Number.isInteger(state.currentAgent.awe_agent.awe_token_config.user_price)
+                  && state.currentAgent.awe_agent.awe_token_config.user_price >= 10
+                && Number.isInteger(state.currentAgent.awe_agent.awe_token_config.game_pool_division)
+                  && state.currentAgent.awe_agent.awe_token_config.game_pool_division >= 0
+                  && state.currentAgent.awe_agent.awe_token_config.game_pool_division <= 100
+                && Number.isInteger(state.currentAgent.awe_agent.awe_token_config.max_invocation_per_payment)
+                  && state.currentAgent.awe_agent.awe_token_config.max_invocation_per_payment >= 0
+            )
+        },
+        gamePoolReady(state) {
+            return (
+                Number.isInteger(state.currentAgent.awe_agent.awe_token_config.max_token_per_round)
+                  && state.currentAgent.awe_agent.awe_token_config.max_token_per_round > 0
+                && Number.isInteger(state.currentAgent.awe_agent.awe_token_config.max_token_per_tx)
+                  && state.currentAgent.awe_agent.awe_token_config.max_token_per_tx > 0
+                && Number.isInteger(state.currentAgent.awe_agent.awe_token_config.max_invocation_per_round)
+                  && state.currentAgent.awe_agent.awe_token_config.max_invocation_per_round >= 0
             )
         },
     },
@@ -221,8 +236,12 @@ export const useAgentStore = defineStore('agent', {
             }
 
             if (this.$state.currentAgent.awe_agent.awe_token_enabled) {
-                if (!this.tokenReady) {
-                    return 'the Token Distribution is not fully configured!'
+                if (!this.paymentReady) {
+                    return 'the User Payment is not fully configured!'
+                }
+
+                if (!this.gamePoolReady) {
+                    return 'the Game Pool is not fully configured!'
                 }
             }
 

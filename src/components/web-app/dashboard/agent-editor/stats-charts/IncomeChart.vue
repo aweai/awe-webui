@@ -49,7 +49,7 @@ const tokenTransferChartOptions = {
     plugins: {
         title: {
             display: true,
-            text: 'Shares from User Payment',
+            text: 'Transaction Income',
             color: '#FFF'
         }
     },

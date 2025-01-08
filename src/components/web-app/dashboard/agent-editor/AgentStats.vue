@@ -29,11 +29,11 @@ const formatNum = (num) => {
         <div class="section-body">
             <div class="row total-numbers-big">
                 <div class="col col-3 stats-number">
-                    <div class="num-title">Total Shares</div>
+                    <div class="num-title">Tx Income</div>
                     <div class="num-value">{{ formatNum(agentStats.total_income_shares) }}</div>
                 </div>
                 <div class="col col-3 stats-number">
-                    <div class="num-title">Total Emissions</div>
+                    <div class="num-title">Emission Income</div>
                     <div class="num-value">{{ formatNum(agentStats.total_emissions) }}</div>
                 </div>
                 <div class="col col-3 stats-number">

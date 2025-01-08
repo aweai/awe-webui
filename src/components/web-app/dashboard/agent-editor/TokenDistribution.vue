@@ -15,7 +15,8 @@ const agentStore = useAgentStore()
 const agentData = agentStore.currentAgent
 const agentStatsData = agentStore.currentAgentStats
 
-const sectionOpen = ref(false)
+const gamePoolSectionOpen = ref(false)
+const paymentSectionOpen = ref(false)
 
 const resetting = ref(false)
 
@@ -52,11 +53,10 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
 });
 </script>
 <template>
-    <section :class="{ 'config-section': true, 'token-distribution': true, 'open': sectionOpen }">
-
-        <h3 class="section-title" @click="sectionOpen = !!(agentData.awe_agent.awe_token_enabled && !sectionOpen)">
+    <section :class="{ 'config-section': true, 'token-distribution': true, 'open': paymentSectionOpen }">
+        <h3 class="section-title" @click="paymentSectionOpen = !paymentSectionOpen">
             <div
-                :class="{ 'section-completed': true, 'yes': agentData.awe_agent.awe_token_enabled && agentStore.tokenReady, 'no': !agentStore.tokenReady || !agentData.awe_agent.awe_token_enabled }">
+                :class="{ 'section-completed': true, 'yes': agentStore.paymentReady, 'no': !agentStore.paymentReady }">
                 <div class="yes">
                     <i class="fa-solid fa-circle-check"></i>
                 </div>
@@ -64,18 +64,68 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                     <i class="fa-solid fa-circle-xmark"></i>
                 </div>
             </div>
-            <div class="text">Token Distribution</div>
-            <div class="section-enabler">
-                <div class="form-check form-switch">
-                    <input v-model="agentData.awe_agent.awe_token_enabled" class="form-check-input" type="checkbox"
-                        role="switch">
-                </div>
-            </div>
+            <div class="text">User Payment</div>
             <div class="collapse-toggle">
                 <i class="fa-solid fa-chevron-left"></i>
             </div>
         </h3>
-        <div class="token-progress-overview" v-if="agentData.awe_agent.awe_token_enabled && !sectionOpen">
+        <div class="section-body">
+
+            <blockquote class="blockquote">
+                <p>
+                    Set the amount of tokens the user should pay before interacting with the Memegent.
+                    The user payment will be divided between yourself and the game pool,
+                    at a ratio you could adjust below. You could also set the limit on the number of interactions a user could perform
+                    before another payment is required.
+                </p>
+            </blockquote>
+
+            <div class="mb-3 config-item">
+                <label for="user-payment-per-round" class="form-label">User payment price (at least 10)</label>
+                <input v-model.number="agentData.awe_agent.awe_token_config.user_price" type="number" step="1"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.user_price) || agentData.awe_agent.awe_token_config.user_price < 10 }"
+                    id="user-payment-per-round">
+            </div>
+            <div class="mb-3 config-item">
+                <label for="max_invocation_per_payment" class="form-label">Division of user payment</label>
+                <div class="row slider-item">
+                    <div class="col col-3 text-end">
+                        Yourself: <span class="division-num">{{ 100 - agentData.awe_agent.awe_token_config.game_pool_division }}</span>%
+                    </div>
+                    <div class="col col-6 slider">
+                        <input type="range" class="form-range" min="0" max="100" step="1" v-model.number="agentData.awe_agent.awe_token_config.game_pool_division">
+                    </div>
+                    <div class="col col-3">
+                        Game Pool: <span class="division-num">{{ agentData.awe_agent.awe_token_config.game_pool_division }}</span>%
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 config-item">
+                <label for="max_invocation_per_payment" class="form-label">Max user invocation allowed per payment (0 means no limit)</label>
+                <input v-model.number="agentData.awe_agent.awe_token_config.max_invocation_per_payment" type="number" step="1"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_invocation_per_payment) || agentData.awe_agent.awe_token_config.max_invocation_per_payment < 0 }"
+                    id="max_invocation_per_payment">
+            </div>
+        </div>
+    </section>
+    <section :class="{ 'config-section': true, 'token-distribution': true, 'open': gamePoolSectionOpen }">
+
+        <h3 class="section-title" @click="gamePoolSectionOpen = !gamePoolSectionOpen">
+            <div
+                :class="{ 'section-completed': true, 'yes': agentStore.gamePoolReady, 'no': !agentStore.gamePoolReady}">
+                <div class="yes">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="no">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+            </div>
+            <div class="text">Game Pool</div>
+            <div class="collapse-toggle">
+                <i class="fa-solid fa-chevron-left"></i>
+            </div>
+        </h3>
+        <div class="token-progress-overview" v-if="agentData.awe_agent.awe_token_enabled && !gamePoolSectionOpen">
             <div class="progress" role="progressbar" aria-label="AWE used this round"
                 :aria-valuenow="agentStatsData.awe_token_round_transferred" aria-valuemin="0"
                 :aria-valuemax="agentStore.maxQuoteThisRound" style="height: 24px">
@@ -100,12 +150,11 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
 
             <blockquote class="blockquote">
                 <p>
-                    Enable to allow Memegent send tokens to the users.
+                    Memegent could send tokens in the game pool to the users.
                     The users could bind their Solana wallets in Telegram,
                     when the Memegent decides to transfer some tokens, it will use the user's wallet automatically.
-                    You can set the maximum amount allowed in a round, and restart the round when the maximum is
-                    reached.
-                    You must charge the Memegent with enough AWE before it could perform the transaction.
+                    You can set the maximum amount allowed in a round,
+                    and restart the round when the maximum is reached.
                 </p>
             </blockquote>
             <div class="mb-3 round">
@@ -126,7 +175,7 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                 </div>
             </div>
             <div class="mb-3 token-used">
-                <label class="form-label">Token used this round</label>
+                <label class="form-label">Token out this round</label>
                 <div class="row">
                     <div class="col col-12">
                         <div class="progress" role="progressbar" aria-label="AWE used this round"
@@ -154,7 +203,7 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
             <div class="mb-3 token-left">
                 <div class="row">
                     <div class="col col-9">
-                        <label class="form-label">Memegent pool:</label>
+                        <label class="form-label">Game pool:</label>
                         <span class="value"><span
                                 :class="{ 'num': true, 'zero': agentStatsData.awe_token_quote === 0 }">{{
                                     agentStatsData.awe_token_quote }}.00</span> AWE</span>
@@ -163,38 +212,24 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
             </div>
 
             <div class="mb-3">
-                <label for="user-payment-per-round" class="form-label">User payment price (at least 10)</label>
-                <input v-model="agentData.awe_agent.awe_token_config.user_price" type="number"
-                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.user_price < 10 }"
-                    id="user-payment-per-round">
-            </div>
-
-            <div class="mb-3">
-                <label for="max-per-tx" class="form-label">Max transfer amount allowed per transaction</label>
-                <input v-model="agentData.awe_agent.awe_token_config.max_token_per_tx" type="number"
-                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.max_token_per_tx <= 0 }"
+                <label for="max-per-tx" class="form-label">Max token out allowed per transaction</label>
+                <input v-model.number="agentData.awe_agent.awe_token_config.max_token_per_tx" type="number" step="1"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_token_per_tx) || agentData.awe_agent.awe_token_config.max_token_per_tx <= 0 }"
                     id="max-per-tx">
             </div>
 
             <div class="mb-3">
-                <label for="max-per-round" class="form-label">Max transfer amount allowed per round</label>
-                <input v-model="agentData.awe_agent.awe_token_config.max_token_per_round" type="number"
-                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.max_token_per_round <= 0 }"
+                <label for="max-per-round" class="form-label">Max token out allowed per round</label>
+                <input v-model.number="agentData.awe_agent.awe_token_config.max_token_per_round" type="number" step="1"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_token_per_round) || agentData.awe_agent.awe_token_config.max_token_per_round <= 0 }"
                     id="max-per-round">
             </div>
 
             <div class="mb-3">
                 <label for="max_invocation_per_round" class="form-label">Max user invocation allowed per round</label>
-                <input v-model="agentData.awe_agent.awe_token_config.max_invocation_per_round" type="number"
-                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.max_invocation_per_round < 0 }"
+                <input v-model.number="agentData.awe_agent.awe_token_config.max_invocation_per_round" type="number" step="1"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_invocation_per_round) || agentData.awe_agent.awe_token_config.max_invocation_per_round < 0 }"
                     id="max_invocation_per_round">
-            </div>
-
-            <div class="mb-3">
-                <label for="max_invocation_per_payment" class="form-label">Max user invocation allowed per payment</label>
-                <input v-model="agentData.awe_agent.awe_token_config.max_invocation_per_payment" type="number"
-                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': agentData.awe_agent.awe_token_config.max_invocation_per_payment < 0 }"
-                    id="max_invocation_per_payment">
             </div>
         </div>
     </section>
@@ -226,6 +261,17 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
     </div>
 </template>
 <style scoped>
+.config-item {
+    margin-top: 36px;
+}
+.slider-item .slider {
+    margin-top: 22px;
+}
+.division-num {
+    font-size: 36px;
+    color: rgba(69, 248, 130);
+    margin-left: 10px;
+}
 .token-distribution .token-used .actions {
     text-align: right;
 }
