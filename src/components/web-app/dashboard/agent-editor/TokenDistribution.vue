@@ -64,7 +64,7 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                     <i class="fa-solid fa-circle-xmark"></i>
                 </div>
             </div>
-            <div class="text">User Payment</div>
+            <div class="text">Play Fee</div>
             <div class="collapse-toggle">
                 <i class="fa-solid fa-chevron-left"></i>
             </div>
@@ -73,24 +73,21 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
 
             <blockquote class="blockquote">
                 <p>
-                    Set the amount of tokens the user should pay before interacting with the Memegent.
-                    The user payment will be divided between yourself and the game pool,
-                    at a ratio you could adjust below. You could also set the limit on the number of interactions a user could perform
-                    before another payment is required.
+                    Set the play fee in $AWE that players must pay before interacting with your Memegent. You can decide how the fee is split between yourself, as the creator, and the game pool. Additionally, specify the maximum number of messages a player can send per play session.
                 </p>
             </blockquote>
 
             <div class="mb-3 config-item">
-                <label for="user-payment-per-round" class="form-label">User payment price (at least 10)</label>
+                <label for="user-payment-per-round" class="form-label">Play Fee (at least 10 $AWE)</label>
                 <input v-model.number="agentData.awe_agent.awe_token_config.user_price" type="number" step="1"
                     :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.user_price) || agentData.awe_agent.awe_token_config.user_price < 10 }"
                     id="user-payment-per-round">
             </div>
             <div class="mb-3 config-item">
-                <label for="max_invocation_per_payment" class="form-label">Division of user payment</label>
+                <label for="max_invocation_per_payment" class="form-label">Play Fee Distribution Settings</label>
                 <div class="row slider-item">
                     <div class="col col-3 text-end">
-                        Yourself: <span class="division-num">{{ 100 - agentData.awe_agent.awe_token_config.game_pool_division }}</span>%
+                        Creator: <span class="division-num">{{ 100 - agentData.awe_agent.awe_token_config.game_pool_division }}</span>%
                     </div>
                     <div class="col col-6 slider">
                         <input type="range" class="form-range" min="0" max="100" step="1" v-model.number="agentData.awe_agent.awe_token_config.game_pool_division">
@@ -101,7 +98,7 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                 </div>
             </div>
             <div class="mb-3 config-item">
-                <label for="max_invocation_per_payment" class="form-label">Max user invocation allowed per payment (0 means no limit)</label>
+                <label for="max_invocation_per_payment" class="form-label">Max player messages per play (0 means no limit)</label>
                 <input v-model.number="agentData.awe_agent.awe_token_config.max_invocation_per_payment" type="number" step="1"
                     :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_invocation_per_payment) || agentData.awe_agent.awe_token_config.max_invocation_per_payment < 0 }"
                     id="max_invocation_per_payment">
@@ -150,11 +147,8 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
 
             <blockquote class="blockquote">
                 <p>
-                    Memegent could send tokens in the game pool to the users.
-                    The users could bind their Solana wallets in Telegram,
-                    when the Memegent decides to transfer some tokens, it will use the user's wallet automatically.
-                    You can set the maximum amount allowed in a round,
-                    and restart the round when the maximum is reached.
+                    Players can connect their Solana wallets directly on Telegram to participate in games and earn $AWE from the game pool by winning matches or successfully jailbreaking a Memegent.
+                    Creators can configure a maximum $AWE reward per round and have the flexibility to start a new round once reaching the limit. To ensure seamless gameplay, Memegents must be preloaded with a sufficient balance of $AWE tokens to stay active and ready for challenges.
                 </p>
             </blockquote>
             <div class="mb-3 round">
@@ -175,7 +169,7 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                 </div>
             </div>
             <div class="mb-3 token-used">
-                <label class="form-label">Token out this round</label>
+                <label class="form-label">$AWE out this round</label>
                 <div class="row">
                     <div class="col col-12">
                         <div class="progress" role="progressbar" aria-label="AWE used this round"
@@ -212,21 +206,21 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
             </div>
 
             <div class="mb-3">
-                <label for="max-per-tx" class="form-label">Max token out allowed per transaction</label>
+                <label for="max-per-tx" class="form-label">Max reward per play</label>
                 <input v-model.number="agentData.awe_agent.awe_token_config.max_token_per_tx" type="number" step="1"
                     :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_token_per_tx) || agentData.awe_agent.awe_token_config.max_token_per_tx <= 0 }"
                     id="max-per-tx">
             </div>
 
             <div class="mb-3">
-                <label for="max-per-round" class="form-label">Max token out allowed per round</label>
+                <label for="max-per-round" class="form-label">Max reward per round</label>
                 <input v-model.number="agentData.awe_agent.awe_token_config.max_token_per_round" type="number" step="1"
                     :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_token_per_round) || agentData.awe_agent.awe_token_config.max_token_per_round <= 0 }"
                     id="max-per-round">
             </div>
 
             <div class="mb-3">
-                <label for="max_invocation_per_round" class="form-label">Max user invocation allowed per round</label>
+                <label for="max_invocation_per_round" class="form-label">Max player messages per round</label>
                 <input v-model.number="agentData.awe_agent.awe_token_config.max_invocation_per_round" type="number" step="1"
                     :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_invocation_per_round) || agentData.awe_agent.awe_token_config.max_invocation_per_round < 0 }"
                     id="max_invocation_per_round">
@@ -245,8 +239,8 @@ watch(() => agentData.awe_agent.awe_token_enabled, (enabled) => {
                     <div class="row confirm-message justify-content-center">
                         <div class="col col-10">
                             <ul>
-                                <li>• Token transfer limit for a round will be reset.</li>
-                                <li>• Users will have to pay again to participate.</li>
+                                <li>• $AWE reward limit will be reset.</li>
+                                <li>• Players will have to pay again to participate.</li>
                             </ul>
                         </div>
                     </div>
