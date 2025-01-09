@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import userAgentAPI from '@/api/v1/user-agent'
 
 import { useRouter } from 'vue-router'
@@ -9,6 +9,8 @@ const currentRoute = router.currentRoute.value
 import { useAgentStore } from '@/stores/agent'
 
 import { alert } from "@/messages"
+
+import ChargeGamePool from './ChargeGamePool.vue'
 
 const agentStore = useAgentStore()
 
@@ -170,7 +172,7 @@ const resetRound = async () => {
                     </div>
                 </div>
             </div>
-            <div class="mb-3 token-used">
+            <div class="mb-3">
                 <label class="form-label">$AWE out this round</label>
                 <div class="row">
                     <div class="col col-12">
@@ -203,6 +205,9 @@ const resetRound = async () => {
                         <span class="value"><span
                                 :class="{ 'num': true, 'zero': agentStatsData.awe_token_quote === 0 }">{{
                                     agentStatsData.awe_token_quote }}.00</span> AWE</span>
+                    </div>
+                    <div class="col col-3 actions">
+                        <charge-game-pool></charge-game-pool>
                     </div>
                 </div>
             </div>
@@ -261,13 +266,11 @@ const resetRound = async () => {
     color: rgba(69, 248, 130);
     margin-left: 10px;
 }
-.token-distribution .token-used .actions {
-    text-align: right;
-}
 
-.token-distribution .token-left .actions {
+.token-distribution .actions {
     padding-top: 12px;
     text-align: right;
+    padding-right: 24px;
 }
 
 .token-distribution .token-left .num {
