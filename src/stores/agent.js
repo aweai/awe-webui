@@ -108,7 +108,12 @@ export const useAgentStore = defineStore('agent', {
             )
         },
         promptReady(state) {
-            return state.currentAgent.awe_agent.llm_config.prompt_preset !== ''
+
+            if (state.currentAgent.awe_agent.llm_config.prompt_preset == "") {
+                return false
+            }
+
+            return !/\{|\}/.test(state.currentAgent.awe_agent.llm_config.prompt_preset)
         },
         imageReady(state) {
             if (state.currentAgent.awe_agent.image_generation_args.base_model.name === '')
@@ -232,7 +237,7 @@ export const useAgentStore = defineStore('agent', {
             }
 
             if (!this.promptReady) {
-                return 'the Characteristics of Memegent cannot be blank!'
+                return 'the Memegent Configurations is invalid!'
             }
 
             if (this.$state.currentAgent.awe_agent.awe_token_enabled) {
