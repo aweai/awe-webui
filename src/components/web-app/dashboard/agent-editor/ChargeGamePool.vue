@@ -4,9 +4,11 @@ import { waiting, alert, closeWaiting } from '@/messages'
 import { useAweClient } from '@/sol-client/client'
 import userAgentAPI from '@/api/v1/user-agent'
 import { useAgentStore } from '@/stores/agent'
+import { useWalletStore } from '@/stores/wallet'
 
 const aweClient = useAweClient()
 const agentStore = useAgentStore()
+const walletStore = useWalletStore()
 
 const chargeAmount = ref(100)
 
@@ -18,11 +20,24 @@ const charging = ref(false)
 
 const charge = async () => {
     if(!chargeAmountValid.value || charging.value) return
+
+    if (walletStore.balanceAwe < BigInt(chargeAmount.value) * BigInt(1e9)) {
+        alert("You don't have enough $AWE in your wallet: " + walletStore.balanceAweStr, "danger", 5000)
+        return
+    }
+
+    if (walletStore.balanceSol < BigInt(1e7)) {
+        alert("You don't have enough $SOL in your wallet: " + walletStore.balanceSolStr, "danger", 5000)
+        return
+    }
+
     charging.value = true
     waiting("Please confirm the transaction in the popup of the wallet.")
 
+    let approveTx
+
     try {
-        await aweClient.approveAwe(BigInt(chargeAmount.value) * BigInt(1e9))
+        approveTx = await aweClient.approveAwe(BigInt(chargeAmount.value) * BigInt(1e9))
     } catch(e) {
         console.error(e)
         alert("Error sending the approve transaction, please try again later.", "danger", 5000)
@@ -32,8 +47,8 @@ const charge = async () => {
     }
 
     try {
-        await userAgentAPI.chargeGamePool(agentStore.currentAgentId, chargeAmount.value)
-        alert("Processing the charge in the background. Please check the game pool balance later.", "success", 5000)
+        await userAgentAPI.chargeGamePool(agentStore.currentAgentId, chargeAmount.value, approveTx)
+        alert("Processing the charge in the background. Please refresh the page and check the game pool balance later.", "success", 8000)
     } catch(e) {
         console.error(e)
         alert("Error connecting to the server, please try again later.", "danger", 5000)
