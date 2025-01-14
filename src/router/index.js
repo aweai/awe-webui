@@ -14,6 +14,11 @@ const router = createRouter({
                     component: () => import('@/components/web-app/index/IndexPage.vue')
                 },
                 {
+                    name: 'memegents',
+                    path: 'memegents',
+                    component: () => import("@/components/web-app/index/agents/AgentList.vue")
+                },
+                {
                     path: 'dashboard',
                     component: () => import('@/components/web-app/dashboard/TheDashboard.vue'),
                     children: [

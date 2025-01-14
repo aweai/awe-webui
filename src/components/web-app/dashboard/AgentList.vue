@@ -6,7 +6,7 @@ import TgCopyButton from './TgCopyButton.vue';
 import { useWalletStore } from '@/stores/wallet';
 import { storeToRefs } from 'pinia';
 import router from '@/router';
-import Pfp from './ThePfp.vue';
+import Pfp from '../ThePfp.vue';
 
 const walletStore = useWalletStore()
 const loading = ref(true)

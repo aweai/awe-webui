@@ -16,8 +16,8 @@
                                    Awe is the platform where memes come alive as interactive agents, blending creativity, games, and rewards in a vibrant ecosystem.
                                 </p>
                                 <div class="slider__btn">
-                                    <a href="https://t.me/ai_meme_doge_bot" target="_blank"
-                                        class="btn btn-primary"><span>Talk to One</span></a>
+                                    <router-link class="btn btn-primary" :to="{'name': 'memegents', 'query': {'list': 'leaderboard'}}"><span>Leaderboard</span></router-link>
+
                                     <span class="social-btns">
                                         <a href="https://x.com/_awe_ai" target="_blank" class="community-btn">
                                             <i class="fa-brands fa-square-x-twitter"></i>
@@ -81,6 +81,9 @@
                                 All behaviors are easily customizable, allowing you to tailor your Memegents to your vision.
                                 No need to write a single line of code, creating and deploying Memegents is as simple as a single click.
                             </p>
+                            <div class="about-btn">
+                                <router-link :to="{'name': 'memegents', 'query': {'list': 'discover'}}" class="btn btn-primary"><span>Discover</span></router-link>
+                            </div>
                         </div>
                     </div>
                 </div>

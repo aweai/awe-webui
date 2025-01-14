@@ -1,7 +1,7 @@
 <script setup>
 import '@/assets/js/bootstrap.bundle.min.js'
 import '@/assets/js/all.min.js'
-import { RouterView, useRouter } from 'vue-router'
+import { RouterView, useRouter, RouterLink } from 'vue-router'
 import { useUserStore } from './stores/user'
 import { WalletMultiButton } from "solana-wallets-vue"
 import { ref, onMounted, onBeforeUnmount } from 'vue'
@@ -61,11 +61,11 @@ onBeforeUnmount(() => {
                                         <li :class="{'nav-item': true, 'active': router.currentRoute.value.name == 'index'}">
                                             <a class="nav-link" href="/">Home</a>
                                         </li>
+                                        <li :class="{'nav-item': true, 'active': ['memegents'].includes(router.currentRoute.value.name)}">
+                                            <router-link :to="{'name': 'memegents'}" class="nav-link">Memegents</router-link>
+                                        </li>
                                         <li v-if="userStore.signedIn" :class="{'nav-item': true, 'active': ['dashboard', 'agent'].includes(router.currentRoute.value.name)}">
                                             <a class="nav-link" href="/dashboard">Dashboard</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="https://docs.aweai.fun" target="_blank">Whitepaper</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="https://docs.aweai.fun/tokenomics/awe" target="_blank">Tokenomics</a>

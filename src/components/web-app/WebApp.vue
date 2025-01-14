@@ -22,7 +22,7 @@ router.isReady().then(() => {
         wallets: [
             new SolflareWalletAdapter({ network: config.solana.network }),
         ],
-        autoConnect: router.currentRoute.value.path !== "/",
+        autoConnect: router.currentRoute.value.path !== "/" && router.currentRoute.value.path !== "/memegents",
     }
 
     initWallet(walletOptions);
@@ -66,7 +66,7 @@ router.isReady().then(() => {
 
             userStore.signedIn = true
 
-            if (router.currentRoute.value.name == "index") {
+            if (router.currentRoute.value.name == "index" || router.currentRoute.value.name == "memegents") {
                 router.push({ name: 'dashboard' })
             }
 
