@@ -5,9 +5,13 @@ const props = defineProps(['agent'])
 const agent = props.agent
 
 const pfpBase64 = ref("")
+const bgImg = ref(null)
 
 const loadPFP = async () => {
     pfpBase64.value = await userAgentAPI.getPFP(agent.id)
+    if(pfpBase64.value !== "") {
+        bgImg.value.style.backgroundImage = `url('${pfpBase64.value}')`
+    }
 }
 
 onMounted(async () => {
@@ -17,7 +21,7 @@ onMounted(async () => {
 <template>
 <a class="memegent-card" :href="'https://t.me/' + agent.tg_username" target="_blank">
     <div class="bg">
-        <div class="img"></div>
+        <div class="img" ref="bgImg"></div>
     </div>
     <div class="content">
         <div class="pfp">
@@ -61,13 +65,13 @@ onMounted(async () => {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    filter: blur(0.5em);
+    filter: blur(1.5em);
     opacity: 0.5;
-    transition: all 0.3s linear;
+    transition: all 0.5s linear;
 }
 .memegent-card:hover .bg .img {
-    min-width: 500%;
-    min-height: 500%;
+    min-width: 400%;
+    min-height: 400%;
 }
 .memegent-card .content {
     position: relative;
@@ -77,6 +81,12 @@ onMounted(async () => {
 .memegent-card .content .pfp {
     width: 50%;
     margin: auto;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.memegent-card:hover .content .pfp {
+    width: 60%;
+    transition: all 0.1s linear;
 }
 .memegent-card .content .name {
     text-align: center;
