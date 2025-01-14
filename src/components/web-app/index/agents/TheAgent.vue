@@ -41,8 +41,9 @@ onMounted(async () => {
     min-height: 260px;
     cursor: pointer;
 }
-.memegent-card:hover .bg {
-    border-color: rgb(69, 248, 130);
+.memegent-card:hover {
+    width: 120%;
+    left: -10%;
 }
 .memegent-card .bg {
     position: absolute;
@@ -53,6 +54,12 @@ onMounted(async () => {
     border: 1px solid #1b242e;
     z-index: 1;
     overflow: hidden;
+    transition: all 0.1s linear;
+}
+.memegent-card:hover .bg {
+    border-color: rgb(69, 248, 130);
+    opacity: 1;
+    filter: drop-shadow(0 0 0.5em rgba(69, 248, 130, 0.5))
 }
 .memegent-card .bg .img {
     display: block;

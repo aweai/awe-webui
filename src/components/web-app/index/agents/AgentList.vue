@@ -108,4 +108,10 @@ onBeforeUnmount(() => {
 .memegent-col-content-wrapper {
     position: relative;
 }
+.memegent-list .col {
+    z-index: 1
+}
+.memegent-list .col:hover {
+    z-index: 100
+}
 </style>
