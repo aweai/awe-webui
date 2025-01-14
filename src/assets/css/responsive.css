@@ -255,6 +255,17 @@
         gap: 0 25px;
         margin: 5px 0 0;
     }
+    .slider__btn {
+        flex-direction: column !important;
+    }
+    .slider__btn .social-btns {
+        margin-top: 24px;
+        text-align: center;
+    }
+
+    .slider__btn .social-btns .community-btn:first-child {
+        margin-left: 0;
+    }
 }
 @media screen and (max-width: 992px) and (min-width: 767.001px){
     .section-title h2 {

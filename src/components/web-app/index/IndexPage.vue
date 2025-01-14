@@ -18,12 +18,14 @@
                                 <div class="slider__btn">
                                     <a href="https://t.me/ai_meme_doge_bot" target="_blank"
                                         class="btn btn-primary"><span>Talk to One</span></a>
-                                    <a href="https://x.com/_awe_ai" target="_blank" class="community-btn">
-                                        <i class="fa-brands fa-square-x-twitter"></i>
-                                    </a>
-                                    <a href="https://t.me/+ymaC0DU64zc5YmZl" target="_blank" class="community-btn">
-                                        <i class="fa-brands fa-telegram"></i>
-                                    </a>
+                                    <span class="social-btns">
+                                        <a href="https://x.com/_awe_ai" target="_blank" class="community-btn">
+                                            <i class="fa-brands fa-square-x-twitter"></i>
+                                        </a>
+                                        <a href="https://t.me/+ymaC0DU64zc5YmZl" target="_blank" class="community-btn">
+                                            <i class="fa-brands fa-telegram"></i>
+                                        </a>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -235,6 +237,7 @@
 .slider__btn {
     display: flex;
     align-items: center;
+    flex-direction: row;
 }
 .community-btn {
     color: white;
