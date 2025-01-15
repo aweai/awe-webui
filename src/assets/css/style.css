@@ -184,7 +184,7 @@ img {
     top: 0px;
     left: 0px;
     right: 0px;
-    z-index: 99;
+    z-index: 9999999;
     transition: all 0.3s ease-in-out;
 }
 .header-area.sticky {

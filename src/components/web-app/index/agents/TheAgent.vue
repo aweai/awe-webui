@@ -97,13 +97,9 @@ onMounted(async () => {
 .memegent-card {
     position: relative;
     display: block;
-    margin-top: 8px;
+    margin-top: 12px;
     min-height: 260px;
     cursor: pointer;
-}
-.memegent-card:hover {
-    width: 120%;
-    left: -10%;
 }
 .memegent-card .bg {
     position: absolute;
@@ -111,16 +107,12 @@ onMounted(async () => {
     height: 100%;
     background-color: #1b242e;
     opacity: 1;
-    border: 1px solid #1b242e;
+    border: 1px solid #7b848e;
     z-index: 1;
     overflow: hidden;
     transition: all 0.1s linear;
 }
-.memegent-card:hover .bg {
-    border-color: rgb(69, 248, 130);
-    opacity: 1;
-    filter: drop-shadow(0 0 0.5em rgba(69, 248, 130, 0.5))
-}
+
 .memegent-card .bg .img {
     display: block;
     background-image: url('@/assets/images/pfp-placeholder-256.png');
@@ -136,10 +128,7 @@ onMounted(async () => {
     opacity: 0.5;
     transition: all 0.5s linear;
 }
-.memegent-card:hover .bg .img {
-    min-width: 400%;
-    min-height: 400%;
-}
+
 .memegent-card .content {
     position: relative;
     z-index: 2;
@@ -151,10 +140,7 @@ onMounted(async () => {
     border-radius: 50%;
     overflow: hidden;
 }
-.memegent-card:hover .content .pfp {
-    width: 60%;
-    transition: all 0.1s linear;
-}
+
 .memegent-card .content .name {
     text-align: center;
     margin-top: 12px;
@@ -200,9 +186,7 @@ onMounted(async () => {
     line-height: 14px;
     opacity: 0.5;
 }
-.memegent-card:hover .content .stats .stats-item {
-    opacity: 1;
-}
+
 .stats-item .icon {
     position: absolute;
     left: 0;
@@ -214,6 +198,41 @@ onMounted(async () => {
     margin-left: 16px;
     margin-top: 2px;
 }
+
+@media screen and (min-width: 767.01px) {
+
+    .memegent-card:hover {
+        width: 120%;
+        left: -10%;
+    }
+
+    .memegent-card:hover .bg {
+        border-color: rgb(69, 248, 130);
+        opacity: 1;
+        filter: drop-shadow(0 0 0.5em rgba(69, 248, 130, 0.5))
+    }
+
+    .memegent-card:hover .content .stats .stats-item {
+        opacity: 1;
+    }
+
+    .memegent-card:hover .content .pfp {
+        width: 60%;
+        transition: all 0.1s linear;
+    }
+
+    .memegent-card:hover .bg .img {
+        min-width: 400%;
+        min-height: 400%;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .memegent-card {
+        margin-top: 7px;
+    }
+}
+
 @media screen and (min-width: 575.01px) and (max-width: 1200px) {
     .memegent-card .content {
         padding: 16px;

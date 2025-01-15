@@ -18,6 +18,7 @@
         "@solana/wallet-adapter-wallets": "^0.19.32",
         "@solana/wallet-standard-features": "^1.2.0",
         "@solana/web3.js": "1.95.5",
+        "@vueuse/core": "^12.4.0",
         "@wallet-standard/features": "^1.1.0",
         "axios": "^1.7.7",
         "bs58": "^6.0.0",
