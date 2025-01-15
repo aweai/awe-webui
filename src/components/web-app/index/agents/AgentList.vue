@@ -7,15 +7,18 @@ import { alert } from '@/messages'
 
 const router = useRouter()
 
-const listType = ref(router.currentRoute.value.query.list)
-
-if(listType.value != "leaderboard" && listType.value != "discover") {
-    listType.value = "discover"
-}
-
 const numColumns = ref(0)
 
 const columnItems = reactive([])
+
+const listType = ref("discover")
+
+const updateListType = () => {
+    listType.value = router.currentRoute.value.query.list
+    if(listType.value != "leaderboard" && listType.value != "discover") {
+            listType.value = "discover"
+    }
+}
 
 const currentPage = ref(0)
 const loading = ref(false)
@@ -69,7 +72,8 @@ const getNumColumns = () => {
     return 2
 }
 
-watch(numColumns, async () => {
+const reloadItems = async () => {
+
     columnItems.length = 0
     for(let i=0; i<numColumns.value; i++)
     {
@@ -78,11 +82,21 @@ watch(numColumns, async () => {
     currentPage.value = 0
 
     await loadItems()
-})
+};
+
+watch(numColumns, reloadItems)
+watch(listType, reloadItems)
 
 onMounted(() => {
+
+    updateListType()
+
     window.addEventListener('resize', windowResize)
     windowResize()
+
+    watch(() => router.currentRoute.value.query.list, () => {
+        updateListType()
+    })
 })
 
 onBeforeUnmount(() => {
@@ -92,8 +106,10 @@ onBeforeUnmount(() => {
 </script>
 <template>
     <div class="container">
-        <div class="nav-tabs" style="padding-top: 158px">
-
+        <div class="memegents-nav-tabs" style="padding-top: 158px">
+            <router-link :to="{'name': 'memegents', 'query': {'list': 'leaderboard'}, 'replace': true}" :class="{'memegents-nav-tab': true, 'active': listType === 'leaderboard'}">Leaderboard</router-link>
+            <div class="divider">|</div>
+            <router-link :to="{'name': 'memegents', 'query': {'list': 'discover'}, 'replace': true}" :class="{'memegents-nav-tab': true, 'active': listType === 'discover'}">Discover</router-link>
         </div>
         <div class="memegent-list row gx-2">
             <div :class="{'col':true, 'col-3': numColumns == 4, 'col-6': numColumns == 2}" v-for="index in numColumns" v-bind:key="index">
@@ -113,5 +129,40 @@ onBeforeUnmount(() => {
 }
 .memegent-list .col:hover {
     z-index: 100
+}
+.memegents-nav-tabs {
+    margin-bottom: 24px;
+    text-align: center;
+}
+.memegents-nav-tab, .memegents-nav-tabs .divider{
+    font-size: 30px;
+    font-family: 'Berlin Sans FB Demi';
+    line-height: 0.8;
+    color: #fff;
+
+    text-transform: uppercase;
+    display: inline-block;
+    cursor: pointer;
+}
+.memegents-nav-tabs .divider {
+    display: inline-block;
+    text-align: center;
+    margin: 0 24px;
+    color: #999;
+}
+.memegents-nav-tab.active,
+.memegents-nav-tab:hover {
+    text-shadow: -1px 2px 0px rgba(69, 248, 130, 0.66);
+}
+
+.memegents-nav-tab.active::after,
+.memegents-nav-tab:hover::after
+{
+    content: "";
+    display: block;
+    background-image: url(/src/assets/images/title_shape.svg);
+    width: 65px;
+    height: 5px;
+    margin: 20px auto;
 }
 </style>
