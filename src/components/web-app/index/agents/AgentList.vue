@@ -106,7 +106,7 @@ onBeforeUnmount(() => {
 </script>
 <template>
     <div class="container">
-        <div class="memegents-nav-tabs" style="padding-top: 158px">
+        <div class="memegents-nav-tabs">
             <router-link :to="{'name': 'memegents', 'query': {'list': 'leaderboard'}, 'replace': true}" :class="{'memegents-nav-tab': true, 'active': listType === 'leaderboard'}">Leaderboard</router-link>
             <div class="divider">|</div>
             <router-link :to="{'name': 'memegents', 'query': {'list': 'discover'}, 'replace': true}" :class="{'memegents-nav-tab': true, 'active': listType === 'discover'}">Discover</router-link>
@@ -133,6 +133,7 @@ onBeforeUnmount(() => {
 .memegents-nav-tabs {
     margin-bottom: 24px;
     text-align: center;
+    padding-top: 158px;
 }
 .memegents-nav-tab, .memegents-nav-tabs .divider{
     font-size: 30px;
@@ -164,5 +165,19 @@ onBeforeUnmount(() => {
     width: 65px;
     height: 5px;
     margin: 20px auto;
+}
+@media screen and (min-width:767.01px) and (max-width: 1200px) {
+    .memegents-nav-tab {
+        font-size: 24px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .memegents-nav-tab {
+        font-size: 20px;
+    }
+    .memegents-nav-tabs {
+        margin-bottom: 16px;
+        padding-top: 108px;
+    }
 }
 </style>

@@ -25,7 +25,8 @@ const getMaxDescriptionAllowed = () => {
     const rowLength = 25;
     if (window.innerWidth >= 1200) return 9 * rowLength;
     if (window.innerWidth >= 992) return 7 * rowLength;
-    return 5 * rowLength;
+    if (window.innerWidth >= 575) return 5 * rowLength;
+    return 3 * rowLength;
 }
 
 const limitDescription = (v) => {
@@ -213,12 +214,17 @@ onMounted(async () => {
     margin-left: 16px;
     margin-top: 2px;
 }
-@media screen and (max-width: 1200px) {
+@media screen and (min-width: 575.01px) and (max-width: 1200px) {
     .memegent-card .content {
         padding: 16px;
     }
     .memegent-card .content .game-pool {
         margin: 8px 0 16px;
+    }
+}
+@media screen and (max-width: 575px) {
+    .memegent-card .content {
+        padding: 16px 6px;
     }
 }
 </style>
