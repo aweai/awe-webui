@@ -68,7 +68,7 @@ onBeforeUnmount(() => {
                                             <a class="nav-link" href="/dashboard">Dashboard</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="https://docs.aweai.fun/tokenomics/awe" target="_blank">Tokenomics</a>
+                                            <a class="nav-link" href="https://docs.aweai.fun" target="_blank">Whitepaper</a>
                                         </li>
                                     </ul>
                                     <div class="header-btn ms-3">
