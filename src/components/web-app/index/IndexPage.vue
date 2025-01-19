@@ -22,7 +22,7 @@
                                         <a href="https://x.com/_awe_ai" target="_blank" class="community-btn">
                                             <i class="fa-brands fa-square-x-twitter"></i>
                                         </a>
-                                        <a href="https://t.me/+ymaC0DU64zc5YmZl" target="_blank" class="community-btn">
+                                        <a href="https://t.me/awe_ai_fun" target="_blank" class="community-btn">
                                             <i class="fa-brands fa-telegram"></i>
                                         </a>
                                     </span>

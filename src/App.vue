@@ -131,7 +131,7 @@ onBeforeUnmount(() => {
                             <div class="footer-el-menu">
                                 <ul class="list-wrap">
                                     <li><a href="https://aweai.fun" target="_blank">Home</a></li>
-                                    <li><a href="https://t.me/_awe_ai" target="_blank">Contact us</a></li>
+                                    <li><a href="https://t.me/awe_ai_fun" target="_blank">Contact us</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -141,8 +141,8 @@ onBeforeUnmount(() => {
                             <h4 class="title">Community</h4>
                             <div class="footer-el-menu">
                                 <ul class="list-wrap end">
-                                    <li><a href="https://t.me/_awe_ai" target="_blank">X/Twitter</a></li>
-                                    <li><a href="https://t.me/+ymaC0DU64zc5YmZl" target="_blank">Telegram</a></li>
+                                    <li><a href="https://x.com/_Awe_Ai" target="_blank">X/Twitter</a></li>
+                                    <li><a href="https://t.me/awe_ai_fun" target="_blank">Telegram</a></li>
                                 </ul>
                             </div>
                         </div>
