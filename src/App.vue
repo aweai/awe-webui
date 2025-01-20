@@ -70,6 +70,9 @@ onBeforeUnmount(() => {
                                         <li class="nav-item">
                                             <a class="nav-link" href="https://docs.aweai.fun" target="_blank">Whitepaper</a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="https://github.com/aweai" target="_blank">GitHub</a>
+                                        </li>
                                     </ul>
                                     <div class="header-btn ms-3">
                                         <wallet-multi-button
@@ -131,6 +134,7 @@ onBeforeUnmount(() => {
                             <div class="footer-el-menu">
                                 <ul class="list-wrap">
                                     <li><a href="https://aweai.fun" target="_blank">Home</a></li>
+                                    <li><a href="https://github.com/aweai" target="_blank">GitHub</a></li>
                                     <li><a href="https://t.me/awe_ai_fun" target="_blank">Contact us</a></li>
                                 </ul>
                             </div>
