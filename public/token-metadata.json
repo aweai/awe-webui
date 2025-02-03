@@ -2,5 +2,10 @@
     "name": "Awe! Token",
     "symbol": "AWE",
     "description": "Meet Memes Alive on Awe!",
-    "image": "https://aweai.fun/logo-round-256.png"
+    "image": "https://aweai.fun/logo-round-256.png",
+    "extensions": {
+        "website": "https://aweai.fun",
+        "twitter": "https://twitter.com/_awe_ai",
+        "telegram": "https://t.me/awe_ai_fun"
+    }
 }
