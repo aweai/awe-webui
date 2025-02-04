@@ -46,11 +46,11 @@
                     <div class="count-main d-flex justify-content-between">
                         <div class="count-box text-center">
                             <span>Memegents</span>
-                            <h2>164</h2>
+                            <h2>?</h2>
                         </div>
                         <div class="count-box text-center">
                             <span>Invocations</span>
-                            <h2>43k</h2>
+                            <h2>?</h2>
                         </div>
                         <div class="count-box text-center">
                             <span>Supply</span>
@@ -58,7 +58,7 @@
                         </div>
                         <div class="count-box text-center">
                             <span>Circulation</span>
-                            <h2>20K</h2>
+                            <h2>20M</h2>
                         </div>
                     </div>
                 </div>
@@ -219,12 +219,12 @@
                             <div class="supply-box position-relative">
                                 <img src="@/assets/images/awe-logo-round.png" alt="AWE Coin" style="margin-top: 6px">
                                 <h3>Total Supply</h3>
-                                <h2>1,000,000,000 <span>(One Billion)</span></h2>
+                                <h2>1,000,000,000 <span>(1 Billion)</span></h2>
                             </div>
                             <div class="supply-box text-end position-relative">
                                 <img src="@/assets/images/awe-logo-round.png" alt="AWE Coin" style="margin-top: 6px">
                                 <h3>Current Circulation</h3>
-                                <h2>0 <span>(Zero)</span></h2>
+                                <h2>20,000,000 <span>(20 Million)</span></h2>
                             </div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="65" height="5" viewBox="0 0 65 5">
                                 <path d="M968,5630h65l-4,5H972Z" transform="translate(-968 -5630)"></path>
