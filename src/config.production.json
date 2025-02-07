@@ -7,5 +7,6 @@
         },
         "system_payer_public_key": "AVdkHnDJJmiBQeTJKqnknsqpcS8gLjVo5dB4GF3RzDqn",
         "agent_creator_staking_lock": 90
-    }
+    },
+    "min_player_payment": 1000
 }

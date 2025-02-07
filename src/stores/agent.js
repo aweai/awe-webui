@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import userAgentAPI from '@/api/v1/user-agent'
+import config from '@/config.json'
 
 const emptyAgent = {
     name: '',
@@ -123,7 +124,7 @@ export const useAgentStore = defineStore('agent', {
         paymentReady(state) {
             return (
                 Number.isInteger(state.currentAgent.awe_agent.awe_token_config.user_price)
-                  && state.currentAgent.awe_agent.awe_token_config.user_price >= 10
+                  && state.currentAgent.awe_agent.awe_token_config.user_price >= config.min_player_payment
                 && Number.isInteger(state.currentAgent.awe_agent.awe_token_config.game_pool_division)
                   && state.currentAgent.awe_agent.awe_token_config.game_pool_division >= 0
                   && state.currentAgent.awe_agent.awe_token_config.game_pool_division <= 100

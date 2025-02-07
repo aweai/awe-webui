@@ -12,6 +12,8 @@ import { alert } from "@/messages"
 
 import ChargeGamePool from './ChargeGamePool.vue'
 
+import config from '@/config.json'
+
 const agentStore = useAgentStore()
 
 const agentData = agentStore.currentAgent
@@ -76,9 +78,9 @@ const resetRound = async () => {
             </blockquote>
 
             <div class="mb-3 config-item">
-                <label for="user-payment-per-round" class="form-label">Play Fee (at least 10 $AWE)</label>
+                <label for="user-payment-per-round" class="form-label">Play Fee (at least {{ config.min_player_payment }} $AWE)</label>
                 <input v-model.number="agentData.awe_agent.awe_token_config.user_price" type="number" step="1"
-                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.user_price) || agentData.awe_agent.awe_token_config.user_price < 10 }"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.user_price) || agentData.awe_agent.awe_token_config.user_price < config.min_player_payment }"
                     id="user-payment-per-round">
             </div>
             <div class="mb-3 config-item">
