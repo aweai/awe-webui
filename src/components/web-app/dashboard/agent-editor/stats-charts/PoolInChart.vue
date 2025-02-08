@@ -42,13 +42,6 @@ const loadAgentDailyPayments = async () => {
                 backgroundColor: '#ffcd56',
             },
             {
-                label: "Addresses",
-                data: loaded.addresses,
-                yAxisID: 'y_tx',
-                borderColor: '#4cc0c0',
-                backgroundColor: '#4cc0c0',
-            },
-            {
                 label: "Amounts",
                 data: loaded.pool_amounts,
                 yAxisID: 'y_amount',
