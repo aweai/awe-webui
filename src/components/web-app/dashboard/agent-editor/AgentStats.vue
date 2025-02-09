@@ -4,6 +4,7 @@ import { useAgentStore } from '@/stores/agent'
 import PoolOutChart from "./stats-charts/PoolOutChart.vue"
 import PoolInChart from "./stats-charts/PoolInChart.vue"
 import StakingCharts from "./stats-charts/StakingCharts.vue"
+import InvocationChart from "./stats-charts/InvocationChart.vue"
 
 const agentStore = useAgentStore()
 const agentStats = agentStore.currentAgentStats
@@ -63,6 +64,11 @@ const formatNum = (num) => {
                     <div class="num-value">{{ formatNum(agentStats.awe_token_total_transferred) }}</div>
                 </div>
             </div>
+            <div class="row invocations">
+                <div class="col">
+                    <invocation-chart></invocation-chart>
+                </div>
+            </div>
             <div class="row game-pool-charts">
                 <div class="col col-6">
                     <pool-in-chart></pool-in-chart>
@@ -95,6 +101,7 @@ const formatNum = (num) => {
     font-size: 36px;
     color: rgba(69, 248, 130);
 }
+.invocations,
 .game-pool-charts,
 .staking-charts {
     margin-top: 44px;

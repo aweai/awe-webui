@@ -16,10 +16,12 @@ import { onMounted, ref } from 'vue';
 import { Line } from 'vue-chartjs'
 import { alert } from '@/messages';
 import moment from 'moment';
+import { useAgentStore } from '@/stores/agent';
+
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, PointElement, LineElement, Colors)
 
-const props = defineProps(['agentId'])
+const agentStore = useAgentStore()
 
 const invocationsChartData = ref({
     labels: [],
@@ -27,7 +29,7 @@ const invocationsChartData = ref({
 })
 
 const loadAgentDailyInvocations = async () => {
-    const loaded = await agentStatsAPI.getDailyInvocations(props.agentId)
+    const loaded = await agentStatsAPI.getDailyInvocations(agentStore.currentAgentId)
     invocationsChartData.value = {
         labels: loaded.days.map((item) => {
             return moment(item * 1000).format("MMM DD")

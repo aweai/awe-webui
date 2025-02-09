@@ -8,5 +8,7 @@
         "system_payer_public_key": "AVdkHnDJJmiBQeTJKqnknsqpcS8gLjVo5dB4GF3RzDqn",
         "agent_creator_staking_lock": 90
     },
-    "min_player_payment": 1000
+    "min_player_payment": 1000,
+    "min_withdraw_amount": 1000,
+    "withdraw_tx_fee": 10
 }

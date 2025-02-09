@@ -57,6 +57,7 @@ export const useAgentStore = defineStore('agent', {
         currentAgentStats: {
             awe_token_round_transferred: 0,
             awe_token_total_transferred: 0,
+            awe_token_creator_balance: 0,
             awe_token_quote: 0,
             current_round: 1,
             awe_token_staking: 0,
