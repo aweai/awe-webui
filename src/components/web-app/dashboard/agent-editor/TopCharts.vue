@@ -3,6 +3,9 @@ import IncomeChart from './stats-charts/IncomeChart.vue'
 import { useAgentStore } from '@/stores/agent';
 import { computed, ref } from 'vue';
 import config from '@/config.json'
+import userAgentAPI from '@/api/v1/user-agent';
+import { alert } from '@/messages';
+
 
 const agentStore = useAgentStore()
 
@@ -16,9 +19,24 @@ const enoughBalance = computed(() => {
     return withdrawAmount.value + config.withdraw_tx_fee <= agentStore.currentAgentStats.awe_token_creator_balance
 })
 
-const withdrawAmount = ref(1000)
+const withdrawAmount = ref(config.min_withdraw_amount)
+const withdrawing = ref(false)
 const withdraw = async () => {
 
+    if (withdrawing.value)
+        return
+
+    withdrawing.value = true
+
+    try {
+        await userAgentAPI.withdraw(agentStore.currentAgentId, withdrawAmount.value)
+        alert("Withdraw request is processing in the background. Please check your wallet later.", "success", 5000)
+    } catch(e) {
+        console.error(e)
+        alert("Something is wrong. Please try again later", "danger", 5000)
+    } finally {
+        withdrawing.value = false
+    }
 }
 
 </script>
@@ -37,9 +55,12 @@ const withdraw = async () => {
                 <div class="stats-panel-bg"></div>
                 <div class="stats-panel-content withdraw-panel">
                     <div class="account-title">Memegent Account</div>
-                    <div class="account-balance">{{ agentStore.currentAgentStats.awe_token_creator_balance.toLocaleString() }}.00</div>
+                    <div class="account-balance">{{ agentStore.currentAgentStats.awe_token_creator_balance.toLocaleString() }}</div>
                     <div class="account-withdraw">
-                        <a class="btn btn-secondary" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#withdrawModal"><span>Withdraw</span></a>
+                        <a v-if="!withdrawing" class="btn btn-secondary" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#withdrawModal"><span>Withdraw</span></a>
+                        <div v-if="withdrawing" class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                     </div>
                 </div>
             </div>

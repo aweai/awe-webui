@@ -41,6 +41,10 @@ class UserAgentAPI extends BaseApi {
         return this.getHttpClient().post("/user-agents/" + id + "/game-pool?amount="+amount + "&tx=" + approveTx)
     }
 
+    async withdraw(id, amount) {
+        return this.getHttpClient().post("/user-agents/" + id + "/account?amount="+amount)
+    }
+
     async getPFP(agent_id) {
         try {
             const response = await fetch(this.getHttpClient().getBaseURL() + "/pfps/" + agent_id + ".png")
