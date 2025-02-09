@@ -24,6 +24,7 @@ const emptyAgent = {
             max_token_per_round: 100,
             user_price: 100,
             game_pool_division: 70,
+            emission_creator_division: 50,
             max_payment_per_round: 0,
             max_invocation_per_payment: 0
         },

@@ -98,6 +98,20 @@ const resetRound = async () => {
                 </div>
             </div>
             <div class="mb-3 config-item">
+                <label for="max_invocation_per_payment" class="form-label">Emission Distribution Settings</label>
+                <div class="row slider-item">
+                    <div class="col col-3 text-end">
+                        Creator: <span class="division-num">{{ 100 - agentData.awe_agent.awe_token_config.emission_creator_division }}</span>%
+                    </div>
+                    <div class="col col-6 slider">
+                        <input type="range" class="form-range" min="0" max="100" step="1" v-model.number="agentData.awe_agent.awe_token_config.emission_creator_division">
+                    </div>
+                    <div class="col col-3">
+                        Players: <span class="division-num">{{ agentData.awe_agent.awe_token_config.emission_creator_division }}</span>%
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 config-item">
                 <label for="max_invocation_per_payment" class="form-label">Max player messages per play (0 means no limit)</label>
                 <input v-model.number="agentData.awe_agent.awe_token_config.max_invocation_per_payment" type="number" step="1"
                     :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_invocation_per_payment) || agentData.awe_agent.awe_token_config.max_invocation_per_payment < 0 }"
