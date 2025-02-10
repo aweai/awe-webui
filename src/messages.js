@@ -1,19 +1,13 @@
 
 export const alert = (message, type, duration) => {
     const alertPlaceholder = document.getElementById('global-alert')
-    alertPlaceholder.innerHTML = ""
+    alertPlaceholder.innerHTML = '<div><div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div></div>'
 
-    setTimeout(() => {
-        const wrapper = document.createElement('div')
-        wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
-        alertPlaceholder.append(wrapper)
-
-        if(duration) {
-            setTimeout(() => {
-                alertPlaceholder.innerHTML = ""
-            }, duration)
-        }
-    }, 10)
+    if(duration) {
+        setTimeout(() => {
+            alertPlaceholder.innerHTML = ""
+        }, duration)
+    }
 }
 
 export const waiting = (message) => {

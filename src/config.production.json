@@ -11,5 +11,6 @@
     "min_game_pool_charge": 100,
     "min_player_payment": 10,
     "min_withdraw_amount": 10,
-    "withdraw_tx_fee": 1
+    "withdraw_tx_fee": 1,
+    "max_messages_per_play": 100
 }

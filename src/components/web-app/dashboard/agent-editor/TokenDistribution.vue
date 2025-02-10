@@ -84,7 +84,7 @@ const resetRound = async () => {
                     id="user-payment-per-round">
             </div>
             <div class="mb-3 config-item">
-                <label for="max_invocation_per_payment" class="form-label">Play Fee Distribution Settings</label>
+                <label class="form-label">Play Fee Distribution Settings</label>
                 <div class="row slider-item">
                     <div class="col col-3 text-end">
                         Creator: <span class="division-num">{{ 100 - agentData.awe_agent.awe_token_config.game_pool_division }}</span>%
@@ -98,7 +98,7 @@ const resetRound = async () => {
                 </div>
             </div>
             <div class="mb-3 config-item">
-                <label for="max_invocation_per_payment" class="form-label">Emission Distribution Settings</label>
+                <label class="form-label">Emission Distribution Settings</label>
                 <div class="row slider-item">
                     <div class="col col-3 text-end">
                         Creator: <span class="division-num">{{ 100 - agentData.awe_agent.awe_token_config.emission_creator_division }}</span>%
@@ -112,9 +112,9 @@ const resetRound = async () => {
                 </div>
             </div>
             <div class="mb-3 config-item">
-                <label for="max_invocation_per_payment" class="form-label">Max player messages per play (0 means no limit)</label>
+                <label for="max_invocation_per_payment" class="form-label">Max player messages per play (max {{ config.max_messages_per_play }})</label>
                 <input v-model.number="agentData.awe_agent.awe_token_config.max_invocation_per_payment" type="number" step="1"
-                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_invocation_per_payment) || agentData.awe_agent.awe_token_config.max_invocation_per_payment < 0 }"
+                    :class="{ 'form-control': true, 'form-control-lg': true, 'is-invalid': !Number.isInteger(agentData.awe_agent.awe_token_config.max_invocation_per_payment) || agentData.awe_agent.awe_token_config.max_invocation_per_payment <= 0 ||  agentData.awe_agent.awe_token_config.max_invocation_per_payment > config.max_messages_per_play}"
                     id="max_invocation_per_payment">
             </div>
             <div class="mb-3">

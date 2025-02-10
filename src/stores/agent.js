@@ -131,7 +131,8 @@ export const useAgentStore = defineStore('agent', {
                   && state.currentAgent.awe_agent.awe_token_config.game_pool_division >= 0
                   && state.currentAgent.awe_agent.awe_token_config.game_pool_division <= 100
                 && Number.isInteger(state.currentAgent.awe_agent.awe_token_config.max_invocation_per_payment)
-                  && state.currentAgent.awe_agent.awe_token_config.max_invocation_per_payment >= 0
+                  && state.currentAgent.awe_agent.awe_token_config.max_invocation_per_payment > 0
+                  && state.currentAgent.awe_agent.awe_token_config.max_invocation_per_payment <= config.max_messages_per_play
                 && Number.isInteger(state.currentAgent.awe_agent.awe_token_config.max_payment_per_round)
                   && state.currentAgent.awe_agent.awe_token_config.max_payment_per_round >= 0
             )
