@@ -37,7 +37,7 @@ watch(connected, async (newValue, oldValue) => {
 
 
         try {
-            await initAweClient(config.solana.network, config.solana.contracts.awe_metadata_address)
+            await initAweClient(config.solana.network, config.solana.contracts.awe_mint_address)
         } catch (e) {
             console.error(e)
             alert("Unexpected error. Please refresh the page and try again.", "danger", 5000)

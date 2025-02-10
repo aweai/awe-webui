@@ -25,8 +25,8 @@ class UserAgentAPI extends BaseApi {
         return this.getHttpClient().get("/user-agents/" + id + "/stats/invocations")
     }
 
-    async importUserAgents() {
-        return this.getHttpClient().post("/user-agents")
+    async createAgent(approveTx) {
+        return this.getHttpClient().post("/user-agents?tx=" + approveTx)
     }
 
     async updateUserAgent(id, userAgentData) {

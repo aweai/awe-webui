@@ -3,6 +3,7 @@ import { useWallet } from "solana-wallets-vue"
 import { encode } from 'js-base64'
 import bs58 from 'bs58'
 import { useAweClient } from '@/sol-client/client'
+import config from '@/config.json'
 
 const formatTokenValue = (original) => {
     if(original === 0) return "0.00"
@@ -21,7 +22,6 @@ export const useWalletStore = defineStore('wallet', {
         balanceSolOriginalStr: "",
         balanceAweOriginalStr: "",
         agentPriceOriginalStr: "",
-        agentCreationQuote: 0,
         accessToken: {
             expires: 0,
             encoded: ""
@@ -91,11 +91,9 @@ export const useWalletStore = defineStore('wallet', {
         },
         async refreshNumbersOnChain() {
             const aweClient = useAweClient()
-            await aweClient.loadAweMetadata()
-            this.agentPriceOriginalStr = aweClient.aweMetadata.agentPrice.toString(10)
+            this.agentPriceOriginalStr = config.agent_price + "000000000"
             this.balanceSolOriginalStr = (await aweClient.getSolBalance()).toString()
             this.balanceAweOriginalStr = (await aweClient.getAweBalance()).toString()
-            this.agentCreationQuote = await aweClient.getAgentCreationQuote()
         }
     },
     persist: {

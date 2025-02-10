@@ -3,11 +3,12 @@
     "solana": {
         "network": "devnet",
         "contracts": {
-            "awe_metadata_address": "FuFDmG2tuTUzKA3jV3ntQ9VmaST5usXFDsCBFVkUM1PF"
+            "awe_mint_address": "Bku6qAGAhEn1RESz8FkuFEzwT5nKyWik14idasduiLuS"
         },
         "system_payer_public_key": "AVdkHnDJJmiBQeTJKqnknsqpcS8gLjVo5dB4GF3RzDqn",
         "agent_creator_staking_lock": 90
     },
+    "agent_price": 100,
     "min_game_pool_charge": 1000,
     "min_player_payment": 1000,
     "min_withdraw_amount": 1000,

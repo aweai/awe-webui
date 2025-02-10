@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { useWalletStore } from '@/stores/wallet';
 import { useAweClient } from '@/sol-client/client';
 import { alert, waiting, closeWaiting } from '@/messages.js';
+import userAgentAPI from '@/api/v1/user-agent';
 import config from '@/config.json'
 
 const walletStore = useWalletStore()
@@ -20,26 +21,29 @@ const createAgent = async () => {
     loading.value = true
 
     waiting("Please confirm the transaction in the popup of the wallet...")
+    let approveTx
+
     const aweClient = useAweClient()
 
     try {
-        await aweClient.createAgent()
-    } catch (e) {
+        approveTx = await aweClient.approveAwe(BigInt(config.agent_price) * BigInt(1e9))
+    } catch(e) {
         console.error(e)
-        alert("Unexpected error when creating the Memegent. Please try again.", "danger", 5000)
-        closeWaiting()
+        alert("Error sending the approve transaction, please try again later.", "danger", 5000)
         loading.value = false
+        closeWaiting()
         return
     }
 
     try {
-        await walletStore.refreshNumbersOnChain()
-    } catch (e) {
+        await userAgentAPI.createAgent(approveTx)
+        alert("Processing the staking in the background. Please reload the agent list later", "success", 8000)
+    } catch(e) {
         console.error(e)
-        alert("Unexpected error when reloading the data. Please refresh the page.", "danger", 5000)
+        alert("Error connecting to the server, please try again later.", "danger", 5000)
     } finally {
-        closeWaiting()
         loading.value = false
+        closeWaiting()
     }
 }
 

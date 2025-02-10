@@ -55,7 +55,7 @@ router.isReady().then(() => {
             v1Client.setAuthToken(walletStore.token)
 
             try {
-                await initAweClient(config.solana.network, config.solana.contracts.awe_metadata_address)
+                await initAweClient(config.solana.network, config.solana.contracts.awe_mint_address)
                 await walletStore.refreshNumbersOnChain()
             } catch (e) {
                 console.error(e)

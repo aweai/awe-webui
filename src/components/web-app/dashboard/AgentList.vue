@@ -1,14 +1,11 @@
 <script setup>
 import userAgentAPI from '@/api/v1/user-agent'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 import CreateAgent from './CreateAgent.vue';
 import TgCopyButton from './TgCopyButton.vue';
-import { useWalletStore } from '@/stores/wallet';
-import { storeToRefs } from 'pinia';
 import router from '@/router';
 import Pfp from '../ThePfp.vue';
 
-const walletStore = useWalletStore()
 const loading = ref(true)
 const userAgents = ref([])
 const importing = ref(false)
@@ -25,7 +22,7 @@ const refreshAgentList = async () => {
     importing.value = true
 
     try {
-        userAgents.value = await userAgentAPI.importUserAgents()
+        userAgents.value = await userAgentAPI.getUserAgents()
     } catch (e) {
         console.error(e)
     } finally {
@@ -38,14 +35,6 @@ const refreshAgentList = async () => {
         behavior: 'smooth'
     })
 }
-
-const { agentCreationQuote } = storeToRefs(walletStore)
-
-watch(agentCreationQuote, async (newQuote) => {
-    if (newQuote > userAgents.value.length) {
-        await refreshAgentList()
-    }
-});
 
 onMounted(async () => {
     try {
@@ -65,7 +54,7 @@ const goToDetail = (agentId) => {
 
 <template>
     <div class="page-title">
-        Memegents ({{ walletStore.agentCreationQuote }})
+        Memegents ({{ userAgents.length }})
         <div :class="{ 'reload-btn': true, 'loading': importing }" @click="refreshAgentList">
             <i class="not-loading fa-solid fa-rotate-right"></i>
             <div class="loading spinner-border text-light" role="status">
@@ -110,7 +99,7 @@ const goToDetail = (agentId) => {
                                                     <i class="fa-brands fa-telegram"></i>
                                                 </div>
                                                 <div class="tg-link-content">
-                                                    https://t.me/memegent_bot
+                                                    https://t.me/my_bot
                                                 </div>
                                                 <div class="copy">
                                                     <i class="fa-solid fa-copy"></i>

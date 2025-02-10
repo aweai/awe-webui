@@ -1,5 +1,5 @@
 import { useAnchorWallet } from 'solana-wallets-vue'
-import { AnchorProvider, Program } from '@coral-xyz/anchor'
+import { AnchorProvider } from '@coral-xyz/anchor'
 import { Connection, clusterApiUrl, PublicKey, Transaction } from '@solana/web3.js'
 import {
     TOKEN_2022_PROGRAM_ID,
@@ -9,41 +9,29 @@ import {
     TokenAccountNotFoundError,
     createApproveCheckedInstruction,
 } from '@solana/spl-token'
-import idl from './awe.json'
-import { Buffer } from 'buffer'
 import config from '@/config'
 
 const preflightCommitment = 'processed'
 const commitment = 'confirmed'
 
 class AweClient {
-    async init(network, aweMetadataAddress) {
+    async init(network, aweMintAddress) {
         const wallet = useAnchorWallet()
         const connection = new Connection(clusterApiUrl(network), commitment)
-        const provider = new AnchorProvider(connection, wallet.value, {
+        this.provider = new AnchorProvider(connection, wallet.value, {
             preflightCommitment,
             commitment,
         })
-        this.program = new Program(idl, provider)
-        this.aweMetadataAddress = aweMetadataAddress
-        this.aweMetadataPublicKey = new PublicKey(aweMetadataAddress)
-        await this.loadAweMetadata()
-    }
-
-    async loadAweMetadata() {
-        this.aweMetadata = await this.program.account.aweMetadata.fetch(
-            this.aweMetadataAddress,
-            'confirmed',
-        )
+        this.aweMintAccount = new PublicKey(aweMintAddress)
     }
 
     getWalletAddress() {
-        return this.program.provider.publicKey.toBase58()
+        return this.provider.publicKey.toBase58()
     }
 
     async getSolBalance() {
         try {
-            const provider = this.program.provider
+            const provider = this.provider
             return BigInt(await provider.connection.getBalance(provider.publicKey, commitment))
         } catch (e) {
             console.error(e)
@@ -54,15 +42,15 @@ class AweClient {
     async getAweBalance() {
         try {
             const tokenAccountAddress = await getAssociatedTokenAddress(
-                this.aweMetadata.aweMintAccount,
-                this.program.provider.publicKey,
+                this.aweMintAccount,
+                this.provider.publicKey,
                 false,
                 TOKEN_2022_PROGRAM_ID,
                 ASSOCIATED_TOKEN_PROGRAM_ID,
             )
 
             const tokenAccount = await getAccount(
-                this.program.provider.connection,
+                this.provider.connection,
                 tokenAccountAddress,
                 null,
                 TOKEN_2022_PROGRAM_ID,
@@ -79,115 +67,14 @@ class AweClient {
         }
     }
 
-    async getAgentCreatorAccount() {
-        const program = this.program
-        const provider = program.provider
-
-        const [agentCreatorAccountAddress] = PublicKey.findProgramAddressSync(
-            [
-                Buffer.from('agent_creator'),
-                this.aweMetadataPublicKey.toBuffer(),
-                provider.publicKey.toBuffer(),
-            ],
-            program.programId,
-        )
-
-        try {
-            const agentCreatorAccountData = await program.account.agentCreator.fetch(
-                agentCreatorAccountAddress,
-                'confirmed',
-            )
-
-            return agentCreatorAccountData
-        } catch (e) {
-            if (/Account does not exist/.test(e.toString())) {
-                return null
-            } else {
-                console.error(
-                    'Error getting agent creator account at: ',
-                    agentCreatorAccountAddress,
-                )
-                throw e
-            }
-        }
-    }
-
-    async getAgentCreationQuote() {
-        let agentCreatorAccountData = await this.getAgentCreatorAccount()
-        if (!agentCreatorAccountData) {
-            return 0
-        } else {
-            return agentCreatorAccountData.numAgents
-        }
-    }
-
-    async createAgent() {
-        // 1. Approve program delegate to transfer AWE from this account
-        const provider = this.program.provider
-
-        const [delegatePublicKey] = PublicKey.findProgramAddressSync(
-            [Buffer.from('delegate')],
-            this.program.programId,
-        )
-
-        const providerTokenAccountPublicKey = await getAssociatedTokenAddress(
-            this.aweMetadata.aweMintAccount,
-            provider.publicKey,
-            false,
-            TOKEN_2022_PROGRAM_ID,
-            ASSOCIATED_TOKEN_PROGRAM_ID,
-        )
-
-        const approveInstruction = createApproveCheckedInstruction(
-            providerTokenAccountPublicKey,
-            this.aweMetadata.aweMintAccount,
-            delegatePublicKey,
-            provider.publicKey,
-            BigInt(this.aweMetadata.agentPrice.toString(10)),
-            9,
-            [],
-            TOKEN_2022_PROGRAM_ID,
-        )
-
-        // 2. Create the agent
-
-        let agentCreatorAccountData = await this.getAgentCreatorAccount()
-
-        let aweMethod
-
-        if (!agentCreatorAccountData) {
-            console.log('Init new Agent Creator Account')
-            aweMethod = this.program.methods.initAgentCreator
-        } else {
-            console.log('numAgents before update: ', agentCreatorAccountData.numAgents.toString())
-            aweMethod = this.program.methods.createAgent
-        }
-
-        await aweMethod()
-            .accounts({
-                aweMetadataAccount: this.aweMetadataPublicKey,
-                aweMintAccount: this.aweMetadata.aweMintAccount,
-
-                // Awe payer info
-                aweSenderAccount: providerTokenAccountPublicKey,
-                aweCollectorAccount: this.aweMetadata.aweCollectorAccount,
-                delegate: delegatePublicKey,
-
-                tokenProgram: TOKEN_2022_PROGRAM_ID,
-                associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
-            })
-            .preInstructions([approveInstruction])
-            .rpc({ commitment: 'confirmed' })
-    }
-
     // Approve the awe collector account to transfer AWE from user's wallet
     async approveAwe(delegateAmount) {
-        const provider = this.program.provider
+        const provider = this.provider
         const connection = provider.connection
         const recentBlockhash = await connection.getLatestBlockhash()
 
         const providerTokenAccountPublicKey = await getAssociatedTokenAddress(
-            this.aweMetadata.aweMintAccount,
+            this.aweMintAccount,
             provider.publicKey,
             false,
             TOKEN_2022_PROGRAM_ID,
@@ -203,7 +90,7 @@ class AweClient {
         }).add(
             createApproveCheckedInstruction(
                 providerTokenAccountPublicKey,
-                this.aweMetadata.aweMintAccount,
+                this.aweMintAccount,
                 systemPayerPubKey,
                 provider.publicKey,
                 delegateAmount,
@@ -227,8 +114,8 @@ export const useAweClient = () => {
     return aweClient
 }
 
-export const initAweClient = async (network, aweMetadataAddress) => {
+export const initAweClient = async (network, aweMintAddress) => {
     aweClient = new AweClient()
-    await aweClient.init(network, aweMetadataAddress)
+    await aweClient.init(network, aweMintAddress)
     return aweClient
 }
