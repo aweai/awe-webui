@@ -49,7 +49,7 @@ const charge = async () => {
 
     try {
         await userAgentAPI.chargeGamePool(agentStore.currentAgentId, chargeAmount.value, approveTx)
-        alert("Processing the charge in the background. Please refresh the page and check the game pool balance later.", "success", 8000)
+        alert("Processing the deposit in the background. Please refresh the page and check the game pool balance later.", "success", 8000)
     } catch(e) {
         console.error(e)
         alert("Error connecting to the server, please try again later.", "danger", 5000)
@@ -61,11 +61,11 @@ const charge = async () => {
 </script>
 <template>
 <button v-if="!charging" type="button" class="btn btn-secondary" data-bs-toggle="modal"
-    data-bs-target="#chargeGamePool">Charge</button>
+    data-bs-target="#chargeGamePool">Deposit</button>
 
 <div v-if="charging" class="spinner-border" role="status"
     style="margin-top: 8px;margin-right: 16px;">
-    <span class="visually-hidden">Charging...</span>
+    <span class="visually-hidden">Depositing...</span>
 </div>
 
 <div class="awe-modal modal fade" id="chargeGamePool" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
