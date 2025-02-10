@@ -5,6 +5,7 @@ import { useAweClient } from '@/sol-client/client'
 import userAgentAPI from '@/api/v1/user-agent'
 import { useAgentStore } from '@/stores/agent'
 import { useWalletStore } from '@/stores/wallet'
+import config from '@/config.json'
 
 const aweClient = useAweClient()
 const agentStore = useAgentStore()
@@ -13,7 +14,7 @@ const walletStore = useWalletStore()
 const chargeAmount = ref(100)
 
 const chargeAmountValid = computed(() => {
-    return Number.isInteger(chargeAmount.value) && chargeAmount.value >= 100
+    return Number.isInteger(chargeAmount.value) && chargeAmount.value >= config.min_game_pool_charge
 })
 
 const charging = ref(false)
@@ -72,21 +73,21 @@ const charge = async () => {
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="resetRound">Charge to the Game Pool</h5>
+                    <h5 class="modal-title" id="resetRound">Deposit to the Game Pool</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-start">
                     <div class="charge-message">
-                        <p>Charge $AWE to the game pool for the players. </p>
-                        <p>Note that once charged, you can never withdraw from the game pool.</p>
-                        <p>Please input the amount you want to charge to the game pool. </p>
+                        <p>Load $AWE into the game pool for the players.</p>
+                        <p>Once added, withdrawals are not allowed.</p>
+                        <p>Please enter the amount you wish to load into the game pool:</p>
                     </div>
                     <div class="mb-3">
                         <div class="input-group mb-3 input-group-lg has-validation">
                             <span class="input-group-text" id="basic-addon1">$AWE</span>
                             <input type="text" :class="{'form-control':true, 'is-invalid':!chargeAmountValid}" placeholder="1000" v-model.number="chargeAmount"/>
                             <div class="invalid-feedback">
-                                Must be an integer. At least $AWE 100. Decimals not supported.
+                                Must be an integer. At least $AWE {{ config.min_game_pool_charge }}. Decimals not supported.
                             </div>
                         </div>
                     </div>
@@ -94,7 +95,7 @@ const charge = async () => {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-secondary" @click="charge"
-                        data-bs-dismiss="modal"><span>Charge</span></button>
+                        data-bs-dismiss="modal"><span>Deposit</span></button>
                 </div>
             </div>
         </div>
