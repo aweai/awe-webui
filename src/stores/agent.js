@@ -26,7 +26,7 @@ const emptyAgent = {
             game_pool_division: 70,
             emission_creator_division: 50,
             max_payment_per_round: 0,
-            max_invocation_per_payment: 0
+            max_invocation_per_payment: 20
         },
         image_generation_enabled: false,
         image_generation_args: {
