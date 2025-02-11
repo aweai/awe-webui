@@ -6,12 +6,12 @@
             "awe_mint_address": "2dmeptCqbnL91o56XxHVFjqpWhDBYvRnA8Wcx1rbHw9t"
         },
         "system_payer_public_key": "CnsjUYmmftxRLa4okMrcAJ6UWP89DRy3sGhaCgaMhZE8",
-        "agent_creator_staking_lock": 90
+        "agent_creator_staking_lock": 30
     },
-    "agent_price": 100,
-    "min_game_pool_charge": 100,
-    "min_player_payment": 10,
-    "min_withdraw_amount": 10,
-    "withdraw_tx_fee": 1,
+    "agent_price": 100000,
+    "min_game_pool_charge": 10000,
+    "min_player_payment": 100,
+    "min_withdraw_amount": 1000,
+    "withdraw_tx_fee": 10,
     "max_messages_per_play": 100
 }
