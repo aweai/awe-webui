@@ -1,9 +1,9 @@
 {
     "base_url": "https://api.aweai.fun",
     "solana": {
-        "network": "devnet",
+        "network": "mainnet-beta",
         "contracts": {
-            "awe_mint_address": "Bku6qAGAhEn1RESz8FkuFEzwT5nKyWik14idasduiLuS"
+            "awe_mint_address": "2dmeptCqbnL91o56XxHVFjqpWhDBYvRnA8Wcx1rbHw9t"
         },
         "system_payer_public_key": "CnsjUYmmftxRLa4okMrcAJ6UWP89DRy3sGhaCgaMhZE8",
         "agent_creator_staking_lock": 90
