@@ -11,7 +11,7 @@
     "agent_price": 100000,
     "min_game_pool_charge": 10000,
     "min_player_payment": 100,
-    "min_withdraw_amount": 1000,
+    "min_withdraw_amount": 10000,
     "withdraw_tx_fee": 10,
     "max_messages_per_play": 100
 }
