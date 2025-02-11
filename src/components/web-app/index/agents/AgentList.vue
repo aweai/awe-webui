@@ -129,14 +129,6 @@ onBeforeUnmount(() => {
 </script>
 <template>
     <div class="container">
-        <div class="testnet-alert">
-            <div class="alert alert-warning" role="alert">
-                <h4>$AWE is NOT launched yet!</h4>
-                <p>Awe! is running on the Solana Devnet. Memegents from the Devnet are displayed! </p>
-                <hr>
-                <p class="mb-0">For latest info on $AWE, follow X: <a href="https://x.com/_awe_ai" target="_blank">https://x.com/_awe_ai</a></p>
-            </div>
-        </div>
         <div class="memegents-nav-tabs">
             <router-link :to="{'name': 'memegents', 'query': {'list': 'leaderboard'}, 'replace': true}" :class="{'memegents-nav-tab': true, 'active': listType === 'leaderboard'}">Leaderboard</router-link>
             <div class="divider">|</div>
@@ -179,7 +171,7 @@ onBeforeUnmount(() => {
 .memegents-nav-tabs {
     margin-bottom: 24px;
     text-align: center;
-    padding-top: 18px;
+    padding-top: 128px;
 }
 .memegents-nav-tab, .memegents-nav-tabs .divider{
     font-size: 30px;
@@ -231,11 +223,7 @@ onBeforeUnmount(() => {
     }
     .memegents-nav-tabs {
         margin-bottom: 16px;
-        
-    }
-    .testnet-alert {
-        position: relative;
-        padding-top: 108px;
+
     }
 }
 </style>
