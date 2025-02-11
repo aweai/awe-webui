@@ -14,10 +14,20 @@ import config from '@/config'
 const preflightCommitment = 'processed'
 const commitment = 'confirmed'
 
+const networks = ["devnet", "testnet", "mainnet-beta"]
+
 class AweClient {
     async init(network, aweMintAddress) {
         const wallet = useAnchorWallet()
-        const connection = new Connection(clusterApiUrl(network), commitment)
+
+        let connection
+
+        if (networks.indexOf(network) !== -1) {
+            connection = new Connection(clusterApiUrl(network), commitment)
+        } else {
+            connection = new Connection(network, commitment)
+        }
+
         this.provider = new AnchorProvider(connection, wallet.value, {
             preflightCommitment,
             commitment,
