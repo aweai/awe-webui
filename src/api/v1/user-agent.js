@@ -45,9 +45,15 @@ class UserAgentAPI extends BaseApi {
         return this.getHttpClient().post("/user-agents/" + id + "/account?amount="+amount)
     }
 
-    async getPFP(agent_id) {
+    async getPFP(agent_id, forceReload = false) {
         try {
-            const response = await fetch(this.getHttpClient().getBaseURL() + "/pfps/" + agent_id + ".png")
+            let url = this.getHttpClient().getBaseURL() + "/pfps/" + agent_id + ".png"
+
+            if (forceReload) {
+                url = url + "?ts=" + Date.now()
+            }
+
+            const response = await fetch(url)
 
             if (!response.ok) {
 

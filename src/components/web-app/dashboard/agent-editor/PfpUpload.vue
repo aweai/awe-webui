@@ -7,8 +7,8 @@ const props = defineProps(['agentId'])
 
 const pfpBase64 = ref("")
 
-const loadPFP = async () => {
-    pfpBase64.value = await userAgentAPI.getPFP(props.agentId)
+const loadPFP = async (forceReload = false) => {
+    pfpBase64.value = await userAgentAPI.getPFP(props.agentId, forceReload)
 }
 
 const pfpUploadInput = ref(null)
@@ -41,7 +41,7 @@ const uploadPFP = async (event) => {
     try {
         uploading.value = true
         await userAgentAPI.uploadPFP(props.agentId, file)
-        await loadPFP()
+        await loadPFP(true)
 
     } catch (e) {
         console.error(e)
