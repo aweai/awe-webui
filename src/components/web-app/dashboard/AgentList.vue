@@ -162,7 +162,7 @@ const goToDetail = (agentId) => {
                         <div class="memegent-card">
                             <div class="memegent-card-bg"></div>
                             <div class="memegent-card-content">
-                                <pfp :agent-id="agent.id"></pfp>
+                                <pfp :agent-id="agent.id" :force-reload="true"></pfp>
                                 <div class="name">{{ agent.name }}</div>
                                 <div class="status">
                                     <div class="enabled" v-if="agent.enabled">
@@ -187,11 +187,11 @@ const goToDetail = (agentId) => {
                                                     <i class="fa-brands fa-telegram"></i>
                                                 </div>
                                                 <div class="tg-link-content">
-                                                    <span v-if="agent.tg_bot">https://t.me/{{ agent.tg_bot.username
+                                                    <span v-if="agent.tg_bot && agent.tg_bot.username && agent.tg_bot.username !== ''">https://t.me/{{ agent.tg_bot.username
                                                         }}</span>
                                                     <span v-else>N/A</span>
                                                 </div>
-                                                <tg-copy-button v-if="agent.tg_bot"
+                                                <tg-copy-button v-if="agent.tg_bot && agent.tg_bot.username && agent.tg_bot.username !== ''"
                                                     :tg-username="agent.tg_bot.username"></tg-copy-button>
                                             </div>
                                         </div>

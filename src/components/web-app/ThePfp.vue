@@ -3,12 +3,14 @@ import { onMounted, ref } from 'vue'
 import { alert } from "@/messages"
 import userAgentAPI from '@/api/v1/user-agent'
 
-const props = defineProps(['agentId'])
+const props = defineProps(['agentId', 'forceReload'])
 
 const pfpBase64 = ref("")
 
+const forceReload = props.forceReload == true
+
 const loadPFP = async () => {
-    pfpBase64.value = await userAgentAPI.getPFP(props.agentId)
+    pfpBase64.value = await userAgentAPI.getPFP(props.agentId, forceReload)
 }
 
 onMounted(async () => {
