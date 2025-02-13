@@ -36,6 +36,9 @@ jobs:
             - name: Create config file
               run: cp ./src/config.production.json ./src/config.json
 
+            - name: Update Solana endpoint
+              run: sed -i -E "s/__SOLANA_END_POINT__/${{ secrets.SOLANA_ENDPOINT }}/g" ./src/config.json
+
             - name: Build
               run: yarn build
 

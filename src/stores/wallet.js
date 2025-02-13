@@ -82,6 +82,7 @@ export const useWalletStore = defineStore('wallet', {
             } catch (e) {
                 console.error(e)
                 this.invalidateAccessToken()
+                throw e
             }
         },
         invalidateAccessToken() {

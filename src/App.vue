@@ -59,13 +59,13 @@ onBeforeUnmount(() => {
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                         <li :class="{'nav-item': true, 'active': router.currentRoute.value.name == 'index'}">
-                                            <a class="nav-link" href="/">Home</a>
+                                            <router-link :to="{'name': 'index'}" class="nav-link">Home</router-link>
                                         </li>
                                         <li :class="{'nav-item': true, 'active': ['memegents'].includes(router.currentRoute.value.name)}">
                                             <router-link :to="{'name': 'memegents'}" class="nav-link">Memegents</router-link>
                                         </li>
                                         <li v-if="userStore.signedIn" :class="{'nav-item': true, 'active': ['dashboard', 'agent'].includes(router.currentRoute.value.name)}">
-                                            <a class="nav-link" href="/dashboard">Dashboard</a>
+                                            <router-link :to="{'name': 'dashboard'}" class="nav-link">Dashboard</router-link>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="https://docs.aweai.fun" target="_blank">Docs</a>

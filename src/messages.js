@@ -10,15 +10,31 @@ export const alert = (message, type, duration) => {
     }
 }
 
+let waitingModelInstance
+
 export const waiting = (message) => {
     const waitingTextContainer = document.getElementById('confirm-message-container')
     waitingTextContainer.innerHTML = message
-    const waitingModal = window.bootstrap.Modal.getOrCreateInstance(document.getElementById('confirmTransaction'));
-    waitingModal.show()
+    if (!waitingModelInstance) {
+        waitingModelInstance = window.bootstrap.Modal.getOrCreateInstance(document.getElementById('confirmTransaction'))
+    }
+
+    setTimeout(() => {
+        waitingModelInstance.show()
+    }, 0)
 }
 
 export const closeWaiting = () => {
-    const waitingModal = window.bootstrap.Modal.getInstance(document.getElementById('confirmTransaction'));
-    if(waitingModal)
-        waitingModal.hide()
+
+    if(!waitingModelInstance) {
+        throw Error("Waiting modal not found")
+    }
+
+    if (waitingModelInstance._isTransitioning) {
+        setTimeout(() => {
+            waitingModelInstance.hide()
+        }, 1000)
+    } else {
+        waitingModelInstance.hide()
+    }
 }

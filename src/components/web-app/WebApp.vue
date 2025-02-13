@@ -31,15 +31,22 @@ router.isReady().then(() => {
     const { connected, publicKey } = useWallet()
 
     watch(connected, async (newConnected) => {
+
         if (newConnected) {
+
+            console.log("wallet connected!")
+
             if (!walletStore.isTokenValid || publicKey.value != walletStore.address) {
                 waiting("Please confirm the signature in the popup of the wallet...")
                 try {
                     await walletStore.generateAccessToken()
+                    console.log("auth token generated!")
                 } catch (e) {
                     console.error(e)
                     closeWaiting()
-                    alert("Unexpected error in sign in process. Please try again later.", "danger", 5000)
+                    setTimeout(() => {
+                        alert("Unexpected error in sign in process. Please try again later.", "danger", 5000)
+                    }, 1000)
                     return
                 }
             } else {
@@ -54,17 +61,25 @@ router.isReady().then(() => {
 
             v1Client.setAuthToken(walletStore.token)
 
+            console.log("auth token valid!")
+
             try {
                 await initAweClient(config.solana.network, config.solana.contracts.awe_mint_address)
                 await walletStore.refreshNumbersOnChain()
+                console.log("onchain data updated!")
             } catch (e) {
                 console.error(e)
-                alert("Error connecting to the Solana network. Please try again later.", "danger", 5000)
+                setTimeout(() => {
+                    alert("Error connecting to the Solana network. Please try again later.", "danger", 5000)
+                    }, 1000)
+                return
             } finally {
                 closeWaiting()
             }
 
             userStore.signedIn = true
+
+            console.log("user signed in!")
 
             if (router.currentRoute.value.name == "index" || router.currentRoute.value.name == "memegents") {
                 router.push({ name: 'dashboard' })

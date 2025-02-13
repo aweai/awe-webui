@@ -40,13 +40,8 @@ class AweClient {
     }
 
     async getSolBalance() {
-        try {
-            const provider = this.provider
-            return BigInt(await provider.connection.getBalance(provider.publicKey, commitment))
-        } catch (e) {
-            console.error(e)
-            return BigInt(0)
-        }
+        const provider = this.provider
+        return BigInt(await provider.connection.getBalance(provider.publicKey, commitment))
     }
 
     async getAweBalance() {
@@ -71,8 +66,7 @@ class AweClient {
             if (e instanceof TokenAccountNotFoundError) {
                 return BigInt(0)
             } else {
-                console.error(e)
-                return BigInt(0)
+                throw e
             }
         }
     }

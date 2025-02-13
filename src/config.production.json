@@ -1,7 +1,7 @@
 {
     "base_url": "https://api.aweai.fun",
     "solana": {
-        "network": "mainnet-beta",
+        "network": "__SOLANA_END_POINT__",
         "contracts": {
             "awe_mint_address": "2dmeptCqbnL91o56XxHVFjqpWhDBYvRnA8Wcx1rbHw9t"
         },

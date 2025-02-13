@@ -1,10 +1,11 @@
 <script setup>
 import userAgentAPI from '@/api/v1/user-agent'
-import { onMounted, ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import CreateAgent from './CreateAgent.vue';
 import TgCopyButton from './TgCopyButton.vue';
 import router from '@/router';
 import Pfp from '../ThePfp.vue';
+import { alert } from '@/messages';
 
 const loading = ref(true)
 const userAgents = ref([])
@@ -25,6 +26,7 @@ const refreshAgentList = async () => {
         userAgents.value = await userAgentAPI.getUserAgents()
     } catch (e) {
         console.error(e)
+        alert("Error loading Memegent list. Please try again later.", "danger", 5000)
     } finally {
         importing.value = false
     }
@@ -36,15 +38,20 @@ const refreshAgentList = async () => {
     })
 }
 
-onMounted(async () => {
+const initLoad = async () => {
     try {
         await loadAgentList()
     } catch (e) {
-        console.log(e)
+        console.error(e)
+        alert("Error loading Memegent list. Please try again later.", "danger", 5000)
     } finally {
         loading.value = false
     }
-});
+}
+
+onMounted(async () => {
+    await initLoad()
+})
 
 const goToDetail = (agentId) => {
     router.push({ 'name': 'agent', 'params': { 'agent_id': agentId } })
